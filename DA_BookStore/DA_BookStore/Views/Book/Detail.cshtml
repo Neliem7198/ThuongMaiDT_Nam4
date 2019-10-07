@@ -1,0 +1,337 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <script src="~/Scripts/DetailScript.js"></script>
+    <link href="@Url.Content("~/Content/detail.css")" rel="stylesheet" type="text/css" />
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    @if (ViewBag.Sach != null)
+    {
+        <title>@ViewBag.Sach.TenSach</title>
+    }
+    else
+    {
+        <title>Null</title>
+    }
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.3&appId=295590887998480&autoLogAppEvents=1"></script>
+
+</head>
+<body>
+    <div id="fb-root"></div>
+    @if (ViewBag.Sach != null)
+    {
+        if (Session["bookEdit"] == null)
+        {
+            <div class="main-screen">
+                <div class="row">
+                    <div class="hover14 column col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
+                        <br>
+                        <figure>
+                            <img src="~/@ViewBag.Sach.HinhSach" class="img-responsive" alt="Image">
+                        </figure>
+                        <br />
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
+                        <div class="book-title">
+                            <h1>@ViewBag.Sach.TenSach</h1>
+                            <h3>Tác giả: @ViewBag.Sach.TenTacGia &nbsp SKU: @ViewBag.Sach.SKU</h3>
+                            <div onclick="likeb()">1</div>
+                            <div class="fb-like" data-width=""
+                                 data-layout="button_count"
+                                 data-action="like"
+                                 data-size="small"
+                                 data-show-faces="true"
+                                 data-share="true" onclick="likeb()"></div>
+                            <script>
+                                function likeb() {
+
+                                    console.log("flag 1");
+                                    FB.init({
+                                        appId: '295590887998480',
+                                        cookie: true,
+                                        xfbml: true,
+                                        version: 'v3.3'
+                                    });
+                                    FB.login(function (response) {
+                                        var data =
+                                        {
+                                            method: 'stream.publish',
+                                            message: "Posted using FB.ui and picture.",
+                                            display: 'iframe',
+                                            caption: "Caption",
+                                            name: "Name",
+                                            picture: 'https://www.permadi.com/tutorial/permadi.png',
+                                            link: "https://www.permadi.com/",  // Go here if user click the picture
+                                            description: "Description field",
+                                            actions: [{ name: 'action_links text!', link: 'https://www.permadi.com' }],
+                                        }
+                                        FB.ui(data, onPostToWallCompleted);
+
+                                        //var img = "https://scontent.fsgn5-6.fna.fbcdn.net/v/t1.0-9/61176848_1805619692926611_1084168058974502912_o.jpg?_nc_cat=1&_nc_eui2=AeEHCr30YuJ0a_6yltUY_hcsAwjwnIzSaMa0JhPIlCwgTEp4jsqPpANQqS7VgXKAxHxhRf9iKJN2HM_y28BrXAZrseQh-3detgsmHMyznRCaPw&_nc_oc=AQkaB5lxpBZYA0IXWx9lVInyVbvtEiHFduj6hiHhGIW2ABSVvISq734ArosiZ5FCfsM&_nc_ht=scontent.fsgn5-6.fna&oh=2cc1bf27c2e832ae02e8aa72b8f29d9a&oe=5D9B918A";
+                                        //var desc = "your caption here";
+                                        //var title = 'your title here';
+                                        //var link = 'https://iamngh.wordpress.com/';
+                                        //FB.ui({
+                                        //    method: 'share_open_graph',
+                                        //    action_type: 'og.shares',
+                                        //    action_properties: JSON.stringify({
+                                        //        object: {
+                                        //            'og:url': link,
+                                        //            'og:title': title,
+                                        //            'og:description': desc,
+                                        //            'og:image': img
+                                        //        }
+                                        //    })
+                                        //}, function (response) {
+                                        //    console.log(response);
+                                        //});
+
+
+
+
+
+                                        //FB.api(
+                                        //    '/feed', 'POST',
+                                        //    { "message":"Awesome!" },
+                                        //    function (response) {
+                                        //        console.log(response);
+                                        //    }
+                                        //);
+                                        console.log("flag 3");
+                                    }, { scope: 'user_likes,user_photos,user_link,user_posts,user_friends' });
+
+
+                                    FB.getLoginStatus(function (response) {
+                                        statusChangeCallback(response);
+                                    });
+
+                                    //FB.login(function (response) {
+                                    //    if (response.authResponse) {
+                                    //        console.log('Welcome!  Fetching your information.... ');
+                                    //    } else {
+                                    //        console.log('User cancelled login or did not fully authorize.');
+                                    //    }
+                                    //}, { scope: 'user_likes,user_photos,user_link,user_posts,user_friends,publish_to_groups,manage_pages' });
+
+                                    (function (d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) { return; }
+                                        js = d.createElement(s); js.id = id;
+                                        js.src = "https://connect.facebook.net/en_US/sdk.js";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }(document, 'script', 'facebook-jssdk'));
+
+
+                                    function statusChangeCallback(response) {
+                                        if (response.status === 'connected') {
+                                            console.log('Logged in and authenticated');
+                                        } else {
+                                            console.log('Not authenticated');
+                                        }
+                                    }
+
+                                }
+                            </script>
+
+                        </div>
+                        <hr>
+                        <div class="book-price">
+                            @if (ViewBag.KhuyenMai != null)
+                            {
+                                <h3>@string.Format("{0:0,0}", @ViewBag.GiaBanHienTai) ₫ </h3>
+                                <p>Tiết kiệm: @ViewBag.KhuyenMai.PhanTramKhuyenMai% (@string.Format("{0:0,0}", @ViewBag.TietKiem)) ₫</p>
+                                <p>Giá thị trường: @string.Format("{0:0,0}", @ViewBag.Sach.GiaBan) ₫</p>
+                            }
+                            else
+                            {
+                                <h3>@string.Format("{0:0,0}", @ViewBag.Sach.GiaBan) ₫ </h3>
+                            }
+                        </div>
+                        @using (Html.BeginForm("GetToCart", "Cart", FormMethod.Post))
+                        {
+                            <div class="row book-oder  ">
+                                <div class="btn-group up_down  col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                                    <button onclick="down('0')" type="button" class="btn-group btn btn-default">-</button>
+                                    <input id="soLuong" name="soLuong" class="btn-group" type="number" value="1" pattern="[0-9]{10}">
+                                    <button onclick="up('100')" type="button" class="btn-group btn btn-default">+</button>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                                    <button id="btn-mua" type="submit" class="btn btn-danger">Chọn mua</button>
+                                    @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+                                    {
+                                        <a class="btnXoa" href="@Url.Action("BookEdit", "Book", new { id = ViewBag.Sach.MaSach })">
+                                            <button id="btn-mua" type="button" class="btn btn-danger" style="margin-left: 10px; width:70px;">Sửa</button>
+                                        </a>
+                                        <a class="btnXoa" href="@Url.Action("BookDelete", "Book", new { id = ViewBag.Sach.MaSach })">
+                                            <button id="btn-xoa" type="button" class="btn btn-danger" style="margin-left: 10px; width:70px;">Xoá</button>
+                                        </a>
+                                    }
+                                </div>
+
+                            </div>
+                        }
+                        <hr>
+                        <div class="book-introduce">
+                            <h1>GIỚI THIỆU SÁCH</h1>
+                            <p style="text-align:justify">
+                                @ViewBag.Sach.GioiThieuSach
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Session["bookEdit"].ToString() == "sua")
+        {
+        <div class="main-screen-2">
+            <div class="row">
+                <div class="hover14 column col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
+                    <br>
+                    <figure>
+                        <img src="~/@ViewBag.Sach.HinhSach" class="img-responsive" alt="Image">
+                    </figure>
+                    <br />
+                </div>
+                <form action="~/Book/UpdateBookDetail" method="post" enctype="multipart/form-data">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
+                        <div class="book-title">
+                            <h3>Tên sách</h3>
+                            <input id="tenSach" name="tenSach" type="text" value="@ViewBag.Sach.TenSach" style="width:100%;" />
+                            <h3>Tác giả</h3>
+                            <input id="tacGia" name="tacGia" type="text" value="@ViewBag.Sach.TenTacGia" style="width:100%;" />
+                            <h3>SKU</h3>
+                            <input id="sku" name="sku" type="text" value="@ViewBag.Sach.SKU" style="width:100%;" />
+                        </div>
+                        <hr>
+                        <div class="book-price">
+                            <h3>Giá bán</h3>
+                            <input id="giaBan" name="giaBan" type="number" value="@ViewBag.Sach.GiaBan" min="1000" style="width:100%;" />
+                        </div>
+
+                        <hr>
+                        <div class="book-count">
+                            <h3>Số lượng</h3>
+                            <input id="soLuong" name="soLuong" type="number" min="1" style="width:100%;" value="@ViewBag.Sach.SoLuongTon" />
+                        </div>
+                        <div class="the-loai">
+                            <h3>Thể loại 1</h3>
+                            <select id="tl1" name="tl1">
+                                <option value="null"></option>
+                                @foreach (var tl in ViewBag.DsTL)
+                                {
+                                    if (tl.HienThiTL)
+                                    {
+                                        if (ViewBag.Sach.MaTL1 != null && ViewBag.Sach.MaTL1.ToString() == tl.MaTheLoai)
+                                        {
+                                            <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="the-loai">
+                            <h3>Thể loại 2</h3>
+                            <select id="tl2" name="tl2">
+                                <option value="null"></option>
+                                @foreach (var tl in ViewBag.DsTL)
+                                {
+                                    if (ViewBag.Sach.MaTL2 != null && ViewBag.Sach.MaTL2.ToString() == tl.MaTheLoai)
+                                    {
+                                        if (tl.HienThiTL)
+                                        {
+                                            if (ViewBag.Sach.MaTL1 != null && ViewBag.Sach.MaTL1.ToString() == tl.MaTheLoai)
+                                            {
+                                                <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                            }
+                                        }
+                                    }
+                                }
+                                </select>
+                            </div>
+                            <div class="the-loai">
+                                <h3>Thể loại 2</h3>
+                                <select id="tl2" name="tl2">
+                                    <option value="null"></option>
+                                    @foreach (var tl in ViewBag.DsTL)
+                                    {
+                                        if (ViewBag.Sach.MaTL2 != null && ViewBag.Sach.MaTL2.ToString() == tl.MaTheLoai)
+                                        {
+                                            <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="the-loai">
+                            <h3>Thể loại 3</h3>
+                            <select id="tl3" name="tl3">
+                                <option value="null"></option>
+                                @foreach (var tl in ViewBag.DsTL)
+                                {
+                                    if (ViewBag.Sach.MaTL3 != null && ViewBag.Sach.MaTL3.ToString() == tl.MaTheLoai)
+                                    {
+                                        <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="book-introduce">
+                            <h3>Giới thiệu sách</h3>
+                            <textarea id="gioiThieuSach" name="gioiThieuSach" style="width:100%; min-height:170px !important;">@ViewBag.Sach.GioiThieuSach</textarea>
+                        </div>
+                        <div class="btn">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" name="hinh" id="hinh" />
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-danger" style="margin-left: 10px; width:70px;">Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                                
+        </div>
+        }
+    
+    }
+    
+    else
+    {
+        <div class="main-screen" style="min-height: 500px;">
+            <h1 style="text-align: center;">Sách không tồn tại</h1>
+        </div>
+    }
+</body>
+</html>

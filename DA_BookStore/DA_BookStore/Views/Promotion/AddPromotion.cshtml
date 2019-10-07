@@ -1,0 +1,205 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="~/Content/promotion.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+		<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+		<script src="~/Scripts/jquery-3.3.1.js"></script>
+		<title>Thêm khuyến mãi</title>
+	</head>
+	<body id="body">
+		<div class="container-fluid">
+			<h3 class="h3-pmt get-center">THÊM KHUYẾN MÃI</h3>
+			<form method="post" id="post-form">
+				<div class="add-pmt-box get-center pmt-box">
+					
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<div class="row">
+								<p>Mã khuyến mãi</p>
+							</div>
+							<div class="row">
+								<input type="text" name="maKM" id="maKM" class="ipt-info" readonly style="background-color: #ddd;">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<div class="row">
+								<p>Tên khuyến mãi</p>
+							</div>
+							<div class="row">
+								<input type="text" name="tenKhuyenMai" id="tenKM" class="ipt-info" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<div class="row">
+								<p>Ngày bắt đầu</p>
+							</div>
+							<div class="row">
+								<input type="datetime-local" name="ngayBatDau" id="ngayBD" class="ipt-info" required>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<div class="row">
+								<p>Ngày kết thúc</p>
+							</div>
+							<div class="row">
+								<input type="datetime-local" name="ngayKetThuc" id="ngayKT" class="ipt-info" required>
+							</div>
+						</div>
+						<script>
+							t = new Date();
+							t = t.toJSON().slice(0,19)
+							t = t.substring(0, t.length - 3)
+
+							var tomorrow = new Date();
+							tomorrow.setDate(tomorrow.getDate() + 1);
+							t2 = tomorrow.toJSON().slice(0,19)
+							t2 = t2.substring(0, t2.length - 3)
+
+							document.getElementById('ngayBD').value = t
+							document.getElementById('ngayKT').value = t2
+						</script>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+							<p>Phần trăm khuyến mãi</p>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 quantity">
+							<input type="number" min="5" max="80" step="5" value="5" class="ipt-info" name="phanTramKhuyenMai" id="phanTram">
+						</div>
+					</div>
+
+					<!--Tab-->
+					<div class="tab">
+			  			<button class="tablinks" type="button" onclick="openCity(event, 'byType')">Theo thể loại</button>
+			  			<button class="tablinks" type="button" onclick="openCity(event, 'byName')">Theo tên sách</button>
+					</div>
+
+					<div id="byType" class="tabcontent" style="display: block">
+						<div>
+							<input class="search" type="text" placeholder="Nhập tên thể loại cần tìm">
+							<button class="btn-search"><i class="fas fa-search"></i></button>
+						</div>
+						<div class="scrollable" >
+							@foreach (var item in ViewBag.DsTL)
+							{
+								<label class="container"> @item.TenTheLoai
+								  	<input type="checkbox" name="TL" value="@item.MaTheLoai">
+								  	<span class="checkmark"></span>
+								</label>
+							}
+						</div>	
+					</div>
+
+					<div id="byName" class="tabcontent">
+					  	<div>
+							<input class="search" type="text" placeholder="Nhập tên sách cần tìm">
+							<button class="btn-search"><i class="fas fa-search"></i></button>
+						</div>
+						<div class="scrollable">
+							<label class="container">One
+							  	<input type="checkbox">
+							  	<span class="checkmark"></span>
+							</label>
+						</div>	
+					</div>				
+				</div>
+				<div class="row get-center submit-box">
+					<div class="submit-item">
+						<button type="submit" onclick="submitPromotion()" class="btn-submit">Thêm</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<script>
+			function openCity(evt, cityName) {
+  				var i, tabcontent, tablinks;
+  				tabcontent = document.getElementsByClassName("tabcontent");
+  				for (i = 0; i < tabcontent.length; i++) {
+    				tabcontent[i].style.display = "none";
+  				}
+  				tablinks = document.getElementsByClassName("tablinks");
+  				for (i = 0; i < tablinks.length; i++) {
+    				tablinks[i].className = tablinks[i].className.replace(" active", "");
+  				}
+  				document.getElementById(cityName).style.display = "block";
+  				evt.currentTarget.className += " active";
+			}
+
+			function listTL(){
+				var lstTL = [];
+				var checkTL = document.getElementsByName('TL');
+					
+				for (var i = 0; i < checkTL.length; i++) {
+					if(checkTL[i].checked)
+						lstTL.push(checkTL[i].value)	
+				}
+				return lstTL;
+			}
+
+			$('#post-form').submit( function submitPromotion(){
+				var tenKM = document.getElementById('tenKM');
+				var ngayBD = document.getElementById('ngayBD');
+				var ngayKT = document.getElementById('ngayKT');
+				var phanTram = document.getElementById('phanTram');
+				var lstTL = listTL();
+
+				if(tenKM.value=="")
+				{
+					alert('Nhập tên khuyến mãi');
+					tenKM.focus();
+					return;
+				}		
+
+				if (ngayKT.value == "" || ngayBD.value == "" || ngayBD.value > ngayKT.value)
+				{
+					alert('Ngày kết thúc và bắt đầu không được rỗng\nVà ngày bắt đầu không được lớn hơn ngày kết thúc');
+					return;
+				}
+
+				if (lstTL == null)
+				{
+					alert('Không được bỏ trống thể loại')
+					return;
+				}
+
+				jQuery.ajax({
+	                type: 'POST',
+	                url: '/Promotion/AddPromotion',
+	                data: { 'tenKhuyenMai': tenKM.value,
+	                		'ngayBatDau': ngayBD.value,
+	                		'ngayKetThuc': ngayKT.value,
+	                		'phanTramKhuyenMai': phanTram.value,
+	                		 'dsTL': lstTL
+	                 },
+	                datatype: "html",
+	                traditional: true,
+	                success: function (data) {
+						window.location.href = "/Promotion/PromotionManage";
+	                },
+	                error: function (err) {
+	                	  console.log(err);
+	                }
+	            });
+			});
+		</script>
+	</body>
+	</html>

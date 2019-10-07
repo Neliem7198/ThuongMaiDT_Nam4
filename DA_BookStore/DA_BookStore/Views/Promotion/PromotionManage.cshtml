@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <meta charset="utf-8">
+    <link href="@Url.Content("~/Content/bookManage.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Quản lý khuyến mãi</title>
+</head>
+
+<body>
+    <section class="main-screen">
+        <div class="container home-inner">
+            <section class="testimonials wrapper">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Khuyến mãi <span class="badge">(@ViewBag.slKM)</span></h3>
+                            </div>
+                            <div class="col-md-3" style="margin-top:15px;">
+                                <a href="~/Promotion/AddPromotion"><button class="btn btn-danger" type="submit">Thêm khuyến mãi</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search">
+                        <div class="col-md-6">
+                            <form action="~/Book/BookManage" method="post">
+                                <div class="input-group">
+                                    <input type="text" id="id" name="id" class="form-control" placeholder="Tìm kiếm theo tên sách...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger" type="submit">Go!</button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </form>
+                        </div><!-- /.col-lg-6 -->
+                    </div>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mã khuyến mãi</th>
+                            <th>Tên khuyến mãi</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Phần trăm khuyến mãi</th>
+                            <th>Tác vụ</th>
+                        </tr>
+                    </thead>
+                   	<tbody>
+                        @foreach (var item in ViewBag.DsKM)
+                        {
+                            <tr>
+                                <td>@item.MaKhuyenMai</td>
+                                <td>@item.TenKhuyenMai</td>
+                                <td>@item.NgayBatDau</td>
+                                <td>@item.NgayKetThuc</td>
+                                <td>@item.PhanTramKhuyenMai</td>
+                                <td><a href="~/Promotion/DetailPromotion?id=@item.MaKhuyenMai">Sửa</a> | <a href="~/Promotion/DeletePromotion/@item.MaKhuyenMai">Xóa</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                
+            </section>
+            <div class="paging" style="display: flex;">
+                <ul class="pagination" style="margin-left: auto; margin-right: auto;">
+                    @{
+                        int numPage = Convert.ToInt32(Math.Ceiling(ViewBag.slKM / 15.0));
+                        for (int i = 1; i < numPage + 1; i++)
+                        {
+                            <li><a href="~/Promotion/PromotionManage?index=@(i-1)">@i</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

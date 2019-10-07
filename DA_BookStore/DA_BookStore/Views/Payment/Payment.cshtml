@@ -1,0 +1,129 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head >
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <meta charset="utf-8">
+    <link href="@Url.Content("~/Content/payment.css")" rel="stylesheet" type="text/css" />
+    @* <script src="~/Scripts/PaymentScript.js"></script>*@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            @using (Html.BeginForm("Payment", "Payment", FormMethod.Post))
+            {
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <h3>ĐỊA CHỈ GIAO HÀNG</h3>
+                    <div id="ship-info" class="row">
+                        <div class="row">
+                            <div class="label col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                Họ tên người nhận<span>*</span>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                <input type="text" name="name" required />
+                                <span>* không được để trống</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="label col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                Địa chỉ giao hàng<span>*</span>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                <input type="text" name="address" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="label col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                Số điện thoại<span>*</span>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                <input type="number" name="phonenumber" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="label col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                Email<span>*</span>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                <input type="email" name="email" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="label col-xs-4 col-sm-4 col-md-4 col-lg-4" style="font-weight: 100;">
+                                Ghi chú thêm
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                <textarea type="text" name="note" style="height:100px; text-wrap:normal" class="form-control" id="review"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="bill" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <h3>HÓA ĐƠN</h3>
+                    <div class="detail">
+                        <div class="row sub-total">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                Tạm tính
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right;" id="boxTamTinh">
+                                @string.Format("{0:0,0}", ViewBag.TamTinh) ₫
+                            </div>
+                        </div>
+                        <hr />
+                            <input class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right;" hidden value="" name="codePromote" id="codePromote" />
+                        <div class="row sub-total" id="discountdiv" hidden>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                Giảm
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right;" id="discountvalue">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                Thành tiền
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right;">
+                                <div class="row" style="color: red;" id="boxThanhTien">
+                                    @string.Format("{0:0,0}", ViewBag.ThanhTien) ₫
+                                </div>
+                                <div class="row" style="font-size: 60%; line-height: 20px;">
+                                    Đã bao gồm thuế VAT
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row btn-midle">
+                        <input  id="submit" class="btn btn-success btn-cash" type="submit" value="Thanh Toán">
+                    </div>
+                </div>
+            }
+            <div id="checkpromote" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <h4>NHẬP MÃ KHUYẾN MÃI</h4>
+                <div class="row giftcode">
+                    <input type="text" name="giftcode" id="giftcode" placeholder="Nhập mã khuyến mãi tại đây...">
+                    <button id="check-giftcode" class="check-giftcode" type="submit" value="Kiểm tra">Kiểm tra</button>
+                    @*<a class="fas fa-times" href="" onclick="this.href='Payment/CheckPromoteCode?gift=' + document.getElementById('giftcode').value;'"></a>*@
+                    @*<a name="s" class="fas fa-times check-giftcode" onclick="location.href = 'Payment/CheckPromoteCode?gift=' + document.getElementById('giftcode').value;"></a>*@
+                    @*<button type="submit" class="check-giftcode">Kiểm tra</button>*@
+                </div>
+            </div>
+        </div>
+        <script src="~/Scripts/PaymentScript.js"></script>
+</body >
+</html >
