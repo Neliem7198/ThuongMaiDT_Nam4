@@ -12,7 +12,7 @@ namespace DA_BookStore.Models
         [Key]
         [Column(Order = 0)]
         [StringLength(10)]
-        public string MaSach { get; set; }
+        public string MaDienThoai { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -21,7 +21,7 @@ namespace DA_BookStore.Models
 
         public short? SoLuongGioHang { get; set; }
 
-        public virtual SACH SACH { get; set; }
+        public virtual DIENTHOAI DIENTHOAI { get; set; }
 
         public virtual TAIKHOAN TAIKHOAN { get; set; }
     }

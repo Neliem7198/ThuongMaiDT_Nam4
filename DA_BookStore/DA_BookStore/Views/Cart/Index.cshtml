@@ -31,11 +31,11 @@
             <div id="cart" class="row">
                 <div class="row">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        <img width="10%" height="10%" src="~/@item.HinhSach" alt="Alternate Text" />
+                        <img width="10%" height="10%" src="~/@item.HinhDienThoai" alt="Alternate Text" />
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <div class="row bookname">
-                            @item.TenSach &nbsp
+                            @item.TenDienThoai &nbsp
                         </div>
                         <div class="row">
                             Số lượng: @item.SoLuongGioHang
@@ -54,7 +54,7 @@
                         <div class="row btn-midle">
                             @using (Html.BeginForm("Cart", "Cart", FormMethod.Get))
                             {
-                                <a class="fas fa-times" href="~/Cart/DeleteItemCart?id=@item.MaSach"></a>
+                                <a class="fas fa-times" href="~/Cart/DeleteItemCart?id=@item.MaDienThoai"></a>
                             }
                         </div>
                     </div>

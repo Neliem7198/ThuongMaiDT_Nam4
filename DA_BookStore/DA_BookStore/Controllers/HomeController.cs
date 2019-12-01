@@ -11,10 +11,10 @@ namespace DA_BookStore.Controllers
     {
         public ActionResult Index()
         {
-            using (var db = new Models.BookStore())
+            using (var db = new Models.QLPhone())
             {
-                ViewBag.DsSachDeal = db.SACHes.Where(t => t.KHUYENMAI.NgayKetThuc > DateTime.Now && t.HienThiS == true).Take(5).ToList();
-                ViewBag.DsTL = db.THELOAIs.ToList();
+                ViewBag.DsSachDeal = db.DIENTHOAIs.Where(t => t.KHUYENMAI.NgayKetThuc > DateTime.Now && t.HienThiDT == true).Take(5).ToList();
+                ViewBag.DsTL = db.HANGSANXUATs.ToList();
                 ViewBag.DsQC = db.QUANGCAOs.ToList();
             }
             
@@ -33,17 +33,17 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Purchase(string idSach )
+        public ActionResult Purchase(string idDT)
         {
-            //string idKhach = Session["userID"].ToString();
-            //using (var db = new Models.BookStore())
-            //{
-            //    Models.CTGIOHANG ct = new Models.CTGIOHANG();
-            //    ct = db.CTGIOHANGs.Where(t => t.MaSach == idSach && t.TenTaiKhoan == idKhach).FirstOrDefault();
-            //    ViewBag.cccc = idSach;
-            //    db.Entry(ct).State = EntityState.Deleted;
-            //    db.SaveChanges();
-            //}
+            string idKhach = Session["userID"].ToString();
+            using (var db = new Models.QLPhone())
+            {
+                Models.CTGIOHANG ct = new Models.CTGIOHANG();
+                ct = db.CTGIOHANGs.Where(t => t.MaDienThoai == idDT && t.TenTaiKhoan == idKhach).FirstOrDefault();
+                ViewBag.cccc = idDT;
+                db.Entry(ct).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
             return RedirectToAction("Index", "Home");
         }
     }

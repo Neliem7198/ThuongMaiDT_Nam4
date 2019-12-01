@@ -6,25 +6,25 @@ namespace DA_BookStore.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("NHAXUATBAN")]
-    public partial class NHAXUATBAN
+    [Table("HANGSANXUAT")]
+    public partial class HANGSANXUAT
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NHAXUATBAN()
+        public HANGSANXUAT()
         {
-            SACHes = new HashSet<SACH>();
+            DIENTHOAIs = new HashSet<DIENTHOAI>();
         }
 
         [Key]
         [StringLength(10)]
-        public string MaNhaXuatBan { get; set; }
+        public string MaHangSanXuat { get; set; }
 
         [StringLength(50)]
-        public string TenNhaXuatBan { get; set; }
+        public string TenHangSanXuat { get; set; }
 
-        public short? SoDauSachXB { get; set; }
+        public bool? HienTHiTL { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SACH> SACHes { get; set; }
+        public virtual ICollection<DIENTHOAI> DIENTHOAIs { get; set; }
     }
 }

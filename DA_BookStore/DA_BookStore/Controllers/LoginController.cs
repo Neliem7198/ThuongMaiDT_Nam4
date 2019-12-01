@@ -29,7 +29,7 @@ namespace DA_BookStore.Controllers
             }
             else if (id != string.Empty && matKhau != string.Empty)
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
                     var tk = db.TAIKHOANs.Where(i => i.TenTaiKhoan == id && i.MauKhau == matKhau).FirstOrDefault();
                     if (tk == null || tk.HienThiTK == false)
@@ -47,7 +47,7 @@ namespace DA_BookStore.Controllers
                             Session["userPrio"] = nv.ChucVuNV;
                             if(nv.ChucVuNV == "Admin")
                             {
-                                return RedirectToAction("Index", "Graph");
+                                return RedirectToAction("Index", "Home");
                             }
                         }
                     }
@@ -78,7 +78,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult SignUp(string id, string pass, string ten, string email, string sdt, bool? sex, string rePass, string diaChi)
         {
-            using (var db = new Models.BookStore())
+            using (var db = new Models.QLPhone())
             {
 
                 var temp = db.TAIKHOANs.Find(id);
@@ -105,13 +105,13 @@ namespace DA_BookStore.Controllers
                     }
 
                     var temp1 = db.TAIKHOANs.Find(email);
-                    if (temp1 == null)
-                    {
-                        ViewBag.MailError = "Mail đã được sử dụng";
-                        return View("SignUp");
-                    }
+                    //if (temp1 == null)
+                    //{
+                    //    ViewBag.MailError = "Mail đã được sử dụng";
+                    //    return View("SignUp");
+                    //}
 
-                    db.TAIKHOANs.Add(new Models.TAIKHOAN() { TenTaiKhoan = id, MauKhau = pass, Email = email, Sdt = sdt, DiaChi = diaChi, GioiTinh = sex, HoTen = ten });
+                    db.TAIKHOANs.Add(new Models.TAIKHOAN() { TenTaiKhoan = id, MauKhau = pass, Email = email, Sdt = sdt, DiaChi = diaChi, GioiTinh = sex, HoTen = ten , HienThiTK= true });
                     db.SaveChanges();
                     db.Dispose();
 

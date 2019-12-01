@@ -18,9 +18,9 @@
 
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    @if (ViewBag.Sach != null)
+    @if (ViewBag.DienThoai != null)
     {
-        <title>@ViewBag.Sach.TenSach</title>
+        <title>@ViewBag.DienTHoai.TenDienThoai</title>
     }
     else
     {
@@ -31,7 +31,7 @@
 </head>
 <body>
     <div id="fb-root"></div>
-    @if (ViewBag.Sach != null)
+    @if (ViewBag.DienThoai != null)
     {
         if (Session["bookEdit"] == null)
         {
@@ -40,14 +40,17 @@
                     <div class="hover14 column col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
                         <br>
                         <figure>
-                            <img src="~/@ViewBag.Sach.HinhSach" class="img-responsive" alt="Image">
+                            <img src="~/@ViewBag.DienThoai.HinhDienThoai" class="img-responsive" alt="Image">
                         </figure>
                         <br />
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
                         <div class="book-title">
-                            <h1>@ViewBag.Sach.TenSach</h1>
-                            <h3>Tác giả: @ViewBag.Sach.TenTacGia &nbsp SKU: @ViewBag.Sach.SKU</h3>
+                            <h1>@ViewBag.DienThoai.TenDienThoai</h1>
+                            @*<h3>
+                                Hãng Điện Thoại: @ViewBag.DienThoai.MaHangSanXuat
+                            </h3>*@
+                            <h3>CPU: @ViewBag.DienThoai.CPU </h3>
                             <div onclick="likeb()">1</div>
                             <div class="fb-like" data-width=""
                                  data-layout="button_count"
@@ -150,14 +153,14 @@
                         <hr>
                         <div class="book-price">
                             @if (ViewBag.KhuyenMai != null)
-                            {
+                            {   
                                 <h3>@string.Format("{0:0,0}", @ViewBag.GiaBanHienTai) ₫ </h3>
                                 <p>Tiết kiệm: @ViewBag.KhuyenMai.PhanTramKhuyenMai% (@string.Format("{0:0,0}", @ViewBag.TietKiem)) ₫</p>
-                                <p>Giá thị trường: @string.Format("{0:0,0}", @ViewBag.Sach.GiaBan) ₫</p>
+                                <p>Giá thị trường: @string.Format("{0:0,0}", @ViewBag.DienThoai.GiaBan) ₫</p>
                             }
                             else
                             {
-                                <h3>@string.Format("{0:0,0}", @ViewBag.Sach.GiaBan) ₫ </h3>
+                                <h3>Giá Bán: @string.Format("{0:0,0}", @ViewBag.DienThoai.GiaBan) ₫ </h3>
                             }
                         </div>
                         @using (Html.BeginForm("GetToCart", "Cart", FormMethod.Post))
@@ -172,10 +175,10 @@
                                     <button id="btn-mua" type="submit" class="btn btn-danger">Chọn mua</button>
                                     @if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
                                     {
-                                        <a class="btnXoa" href="@Url.Action("BookEdit", "Book", new { id = ViewBag.Sach.MaSach })">
+                                        <a class="btnXoa" href="@Url.Action("BookEdit", "Book", new { id = ViewBag.DienThoai.MaDienThoai })">
                                             <button id="btn-mua" type="button" class="btn btn-danger" style="margin-left: 10px; width:70px;">Sửa</button>
                                         </a>
-                                        <a class="btnXoa" href="@Url.Action("BookDelete", "Book", new { id = ViewBag.Sach.MaSach })">
+                                        <a class="btnXoa" href="@Url.Action("BookDelete", "Book", new { id = ViewBag.DienThoai.MaDienThoai })">
                                             <button id="btn-xoa" type="button" class="btn btn-danger" style="margin-left: 10px; width:70px;">Xoá</button>
                                         </a>
                                     }
@@ -185,9 +188,9 @@
                         }
                         <hr>
                         <div class="book-introduce">
-                            <h1>GIỚI THIỆU SÁCH</h1>
+                            <h1>GIỚI THIỆU ĐIỆN THOẠI</h1>
                             <p style="text-align:justify">
-                                @ViewBag.Sach.GioiThieuSach
+                                @ViewBag.DienThoai.GioiThieuDienThoai
                             </p>
                         </div>
                     </div>
@@ -201,52 +204,58 @@
                 <div class="hover14 column col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
                     <br>
                     <figure>
-                        <img src="~/@ViewBag.Sach.HinhSach" class="img-responsive" alt="Image">
+                        <img src="~/@ViewBag.DienThoai.HinhDienThoai" class="img-responsive" alt="Image">
                     </figure>
                     <br />
                 </div>
                 <form action="~/Book/UpdateBookDetail" method="post" enctype="multipart/form-data">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left-box">
                         <div class="book-title">
-                            <h3>Tên sách</h3>
-                            <input id="tenSach" name="tenSach" type="text" value="@ViewBag.Sach.TenSach" style="width:100%;" />
-                            <h3>Tác giả</h3>
-                            <input id="tacGia" name="tacGia" type="text" value="@ViewBag.Sach.TenTacGia" style="width:100%;" />
-                            <h3>SKU</h3>
-                            <input id="sku" name="sku" type="text" value="@ViewBag.Sach.SKU" style="width:100%;" />
+                            <h3>Tên điện thoại</h3>
+                            <input id="tenDienThoai" name="tenDienThoai" type="text" value="@ViewBag.DienThoai.TenDienThoai" style="width:100%;" />
+                            <h3>Màn Hình</h3>
+                            <input id="manHinh" name="manHinh" type="text" value="@ViewBag.DienThoai.ManHinh" style="width:100%;" />
+                            <h3>Camera Sau</h3>
+                            <input id="cameraSau" name="cameraSau" type="text" value="@ViewBag.DienThoai.CameraSau" style="width:100%;" />
+                            <h3>Camera Trước</h3>
+                            <input id="cameraTruoc" name="cameraTruoc" type="text" value="@ViewBag.DienThoai.CameraTruoc" style="width:100%;" />
+                            <h3>Hệ Điều Hành</h3>
+                            <input id="hdh" name="hdh" type="text" value="@ViewBag.DienThoai.HeDieuHanh" style="width:100%;" />
+                            <h3>CPU</h3>
+                            <input id="cpu" name="cpu" type="text" value="@ViewBag.DienThoai.CPU" style="width:100%;" />
                         </div>
                         <hr>
                         <div class="book-price">
                             <h3>Giá bán</h3>
-                            <input id="giaBan" name="giaBan" type="number" value="@ViewBag.Sach.GiaBan" min="1000" style="width:100%;" />
+                            <input id="giaBan" name="giaBan" type="number" value="@ViewBag.DienTHoai.GiaBan" min="1000" style="width:100%;" />
                         </div>
 
                         <hr>
                         <div class="book-count">
                             <h3>Số lượng</h3>
-                            <input id="soLuong" name="soLuong" type="number" min="1" style="width:100%;" value="@ViewBag.Sach.SoLuongTon" />
+                            <input id="soLuongTon" name="soLuongTon" type="number" min="1" style="width:100%;" value="@ViewBag.DienThoai.SoLuongTon" />
                         </div>
                         <div class="the-loai">
-                            <h3>Thể loại 1</h3>
+                            <h3>Hãng sản xuất</h3>
                             <select id="tl1" name="tl1">
                                 <option value="null"></option>
                                 @foreach (var tl in ViewBag.DsTL)
                                 {
-                                    if (tl.HienThiTL)
+                                    if (tl.HienTHiTL)
                                     {
-                                        if (ViewBag.Sach.MaTL1 != null && ViewBag.Sach.MaTL1.ToString() == tl.MaTheLoai)
+                                        if (ViewBag.DienThoai.MaHangSanXuat != null && ViewBag.DienTHoai.MaHangSanXuat.ToString() == tl.MaHangSanXuat)
                                         {
-                                            <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                                            <option value="@tl.MaHangSanXuat" selected>@tl.TenHangSanXuat</option>
                                         }
                                         else
                                         {
-                                            <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                            <option value="@tl.MaHangSanXuat">@tl.TenHangSanXuat</option>
                                         }
                                     }
                                 }
                             </select>
                         </div>
-                        <div class="the-loai">
+                        @*<div class="the-loai">
                             <h3>Thể loại 2</h3>
                             <select id="tl2" name="tl2">
                                 <option value="null"></option>
@@ -303,10 +312,10 @@
                                     }
                                 }
                             </select>
-                        </div>
+                        </div>*@
                         <div class="book-introduce">
-                            <h3>Giới thiệu sách</h3>
-                            <textarea id="gioiThieuSach" name="gioiThieuSach" style="width:100%; min-height:170px !important;">@ViewBag.Sach.GioiThieuSach</textarea>
+                            <h3>Giới thiệu điện thoại</h3>
+                            <textarea id="gioiThieuDienThoai" name="gioiThieuDienThoai" style="width:100%; min-height:170px !important;">@ViewBag.DienTHoai.GioiThieuDienThoai</textarea>
                         </div>
                         <div class="btn">
                             <div class="row">
@@ -330,7 +339,7 @@
     else
     {
         <div class="main-screen" style="min-height: 500px;">
-            <h1 style="text-align: center;">Sách không tồn tại</h1>
+            <h1 style="text-align: center;">Điện thoại không tồn tại</h1>
         </div>
     }
 </body>

@@ -27,10 +27,6 @@ body * {
     border-width: 0;
 }
 
-.navbar-default .navbar-brand {
-    color: #fff;
-}
-
 /*a img{
 	margin: 10px 0px;
 } use image logo */
@@ -134,7 +130,7 @@ body * {
 
 /* category */
 .category .row {
-    background-color: #fff;
+    background-color: #efd64c;
     height: 200px;
     margin: 20px 0px
 }

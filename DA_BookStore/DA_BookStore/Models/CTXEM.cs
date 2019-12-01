@@ -6,13 +6,13 @@ namespace DA_BookStore.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CTXEMSACH")]
-    public partial class CTXEMSACH
+    [Table("CTXEM")]
+    public partial class CTXEM
     {
         [Key]
         [Column(Order = 0)]
         [StringLength(10)]
-        public string MaSach { get; set; }
+        public string MaDienThoai { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -21,9 +21,9 @@ namespace DA_BookStore.Models
 
         [Key]
         [Column(Order = 2)]
-        public DateTime NgayXemSach { get; set; }
+        public DateTime NgayXem { get; set; }
 
-        public virtual SACH SACH { get; set; }
+        public virtual DIENTHOAI DIENTHOAI { get; set; }
 
         public virtual TAIKHOAN TAIKHOAN { get; set; }
     }

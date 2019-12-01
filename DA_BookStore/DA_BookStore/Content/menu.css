@@ -23,7 +23,7 @@
 
     .big-menu .navbar-default {
         /*background-color: #33ca93;*/
-        background-color: #359164 !important;
+        background-color: #efd64c !important;
         background-image: none;
         box-shadow: none;
         border-radius: 0px !important;
@@ -36,10 +36,12 @@
 .navbar > .container-fluid .navbar-brand {
     margin-left: 20px;
     border-width: 0;
+    color:black;
 }
-
-.navbar-default .navbar-brand {
-    color: #fff;
+#item-on-secondline {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 /*a img{
@@ -53,13 +55,12 @@
 }
 
 .first-line-menu a {
-    margin: 0px 20px;
+    margin: 0px 10px;
     position: relative;
 }
 
 .first-line-menu .form-control {
     margin: 0;
-    margin-left: 2rem !important;
     width: 360px;
 }
 
@@ -72,8 +73,7 @@
 /* Dropdown Button */
 .dropbtn {
     background-color: none;
-    color: white;
-    /*padding: 16px;*/
+    color: black;
     border: none;
 }
 

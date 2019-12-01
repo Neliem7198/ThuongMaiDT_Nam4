@@ -14,12 +14,12 @@ namespace DA_BookStore.Controllers
 
             if (Session["userID"] != null)
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
                     Models.CTGIOHANG ct = new Models.CTGIOHANG();
-                    ct.MaSach = Session["bookID"].ToString();
+                    ct.MaDienThoai = Session["bookID"].ToString();
                     ct.TenTaiKhoan = Session["userID"].ToString();
-                    Models.CTGIOHANG ct2 = db.CTGIOHANGs.Find(ct.MaSach, ct.TenTaiKhoan);
+                    Models.CTGIOHANG ct2 = db.CTGIOHANGs.Find(ct.MaDienThoai, ct.TenTaiKhoan);
                     if (ct2 != null)
                     {
                         ct2.SoLuongGioHang += short.Parse(soLuong.ToString());
@@ -28,7 +28,7 @@ namespace DA_BookStore.Controllers
                     else
                     {
                         ct2 = new Models.CTGIOHANG();
-                        ct2.MaSach = ct.MaSach;
+                        ct2.MaDienThoai = ct.MaDienThoai;
                         ct2.TenTaiKhoan = ct.TenTaiKhoan;
                         ct2.SoLuongGioHang = short.Parse(soLuong.ToString());
                         db.CTGIOHANGs.Add(ct2);
@@ -47,18 +47,18 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userID"] == null)
                 return RedirectToAction("Login", "Login");
-            using (var db = new Models.BookStore())
+            using (var db = new Models.QLPhone())
             {
-                ViewBag.DsSachDeal = db.SACHes.Where(t => t.KHUYENMAI.NgayKetThuc > DateTime.Now && t.HienThiS == true).Take(5).ToList();
-                ViewBag.DsTL = db.THELOAIs.ToList();
+                ViewBag.DsSachDeal = db.DIENTHOAIs.Where(t => t.KHUYENMAI.NgayKetThuc > DateTime.Now && t.HienThiDT == true).Take(5).ToList();
+                ViewBag.DsTL = db.HANGSANXUATs.ToList();
                 List<Models.CTGIOHANG> ct = new List<Models.CTGIOHANG>();
                 string temp = Session["userID"].ToString();
 
 
                 var query = from gh in db.CTGIOHANGs
-                            join s in db.SACHes on gh.MaSach equals s.MaSach
+                            join s in db.DIENTHOAIs on gh.MaDienThoai equals s.MaDienThoai
                             where gh.TenTaiKhoan == temp
-                            select new { s.HinhSach, s.TenSach, gh.SoLuongGioHang, s.MaSach, s.MaKhuyenMai, s.GiaBan };
+                            select new { s.HinhDienThoai, s.TenDienThoai, gh.SoLuongGioHang, s.MaDienThoai, s.MaKhuyenMai, s.GiaBan };
 
                 List<Models.CTGIOHANGViewModel> ctgh = new List<Models.CTGIOHANGViewModel>();
                 Models.KHUYENMAI km = new Models.KHUYENMAI();
@@ -67,10 +67,10 @@ namespace DA_BookStore.Controllers
                 foreach (var item in query)
                 {
                     Models.CTGIOHANGViewModel cttemp = new Models.CTGIOHANGViewModel();
-                    cttemp.HinhSach = item.HinhSach;
-                    cttemp.TenSach = item.TenSach;
+                    cttemp.HinhDienThoai = item.HinhDienThoai;
+                    cttemp.TenDienThoai = item.TenDienThoai;
                     cttemp.SoLuongGioHang = item.SoLuongGioHang;
-                    cttemp.MaSach = item.MaSach;
+                    cttemp.Ma = item.MaDienThoai;
                     km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
                     cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
                     cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang * (km.PhanTramKhuyenMai * 0.01);
@@ -96,10 +96,10 @@ namespace DA_BookStore.Controllers
                 return RedirectToAction("Login", "Login");
             }
             string idKhach = Session["userID"].ToString();
-            using (var db = new Models.BookStore())
+            using (var db = new Models.QLPhone())
             {
                 var sql = from c in db.CTGIOHANGs
-                          where c.MaSach == idSach && c.TenTaiKhoan == idKhach
+                          where c.MaDienThoai == idSach && c.TenTaiKhoan == idKhach
                           select c;
 
                 var sql2 = sql.FirstOrDefault();

@@ -11,7 +11,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult Index(string id = "", bool edit = false)
         {
-            using (var db = new Models.BookStore())
+            using (var db = new Models.QLPhone())
             {
                 if (Session["userID"] != null)
                 {
@@ -35,7 +35,7 @@ namespace DA_BookStore.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                ViewBag.DsTL = db.THELOAIs.ToList();
+                ViewBag.DsTL = db.HANGSANXUATs.ToList();
             }
             return View();
         }
@@ -43,7 +43,7 @@ namespace DA_BookStore.Controllers
         [HttpPost]
         public ActionResult UpdateAccountDetail(string id, string pass, string name, string email, string sdt, string sex, string rePass, string prio = "")
         {
-            using (var db = new Models.BookStore())
+            using (var db = new Models.QLPhone())
             {
                 if (rePass != pass && pass != "")
                 {
@@ -98,11 +98,11 @@ namespace DA_BookStore.Controllers
 
                 db.SaveChanges();
 
-                ViewBag.DsTL = db.THELOAIs.ToList();
+                ViewBag.DsTL = db.HANGSANXUATs.ToList();
                 ViewBag.TK = tk;
             }
 
-            return RedirectToAction("Index", "Account");
+            return RedirectToAction("Index","Account");
         }
 
         public ActionResult DeleteAccount(string id)
@@ -110,7 +110,7 @@ namespace DA_BookStore.Controllers
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
                 if(Session["userID"].ToString() != id){
-                    using (var db = new Models.BookStore())
+                    using (var db = new Models.QLPhone())
                     {
                         Models.TAIKHOAN tk = db.TAIKHOANs.Find(id);
                         Models.NHANVIEN nv = db.NHANVIENs.Find(id);
@@ -131,9 +131,9 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
 
                     List<Models.TAIKHOAN> dsTK = db.TAIKHOANs.Where(t => t.HienThiTK == true).ToList();
 
@@ -151,9 +151,9 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                     ViewBag.DsNV = db.NHANVIENs.ToList();
 
                     ViewBag.test = Request.Url.ToString();

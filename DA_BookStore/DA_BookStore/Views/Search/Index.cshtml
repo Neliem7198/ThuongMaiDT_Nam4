@@ -22,11 +22,11 @@
 
     @if (ViewBag.TenTL == null)
     {
-        <title>Có @ViewBag.SoLuong kết quả về sách '@ViewBag.TenSach'</title>
+        <title>Có @ViewBag.SoLuong kết quả về điện thoại '@ViewBag.TenSach'</title>
     }
     else
     {
-        <title>Có @ViewBag.SoLuong kết quả về thể loại '@ViewBag.TenTL'</title>
+        <title>Có @ViewBag.SoLuong kết quả về hãng điện thoại '@ViewBag.TenTL'</title>
     }
 </head>
 <body>
@@ -38,9 +38,10 @@
                 @foreach (var item in @ViewBag.DsSach)
                 {
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        <a href="~/Book/Detail?id=@item.MaSach">
-                            <div class="book-box">
-                                <img src="~/@item.HinhSach" style="height: 100%; width: 100%" />
+                        <a href="~/Book/Detail?id=@item.MaDienThoai">
+                            <div class="book-box" style="margin-bottom: 50px; background-color:transparent; ">
+                                <img src="~/@item.HinhDienThoai" style="height: 100%; width: 100%" />                               
+                                <h3  style="color:black ; text-align:center;font-size:14px"  > @item.TenDienThoai </h3>                             
                             </div>
                         </a>
                     </div>

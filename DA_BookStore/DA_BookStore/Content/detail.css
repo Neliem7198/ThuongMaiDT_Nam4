@@ -80,7 +80,7 @@ body * {
 	border-bottom-left-radius: 4px;
 	border-top-left-radius: 4px;*/
     height: auto;
-    background:rgb(204, 203, 203);
+    background-color: whitesmoke;
 }
 
 .main-screen .row {
@@ -99,7 +99,7 @@ body * {
 	border-bottom-left-radius: 4px;
 	border-top-left-radius: 4px;*/
     height: auto;
-    background: rgb(204, 203, 203);
+    background-color: whitesmoke;
 }
 
     .main-screen-2 .row {
@@ -112,12 +112,8 @@ body * {
     }
 
 .left-box {
-    background:rgb(204, 203, 203);
+    background-color:whitesmoke;
 }
-.right-box {
-    background:rgb(204, 203, 203);
-}
-
 .book-oder {
     margin-left: 10px;
     height: 50px;

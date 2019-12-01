@@ -19,7 +19,7 @@
     <link href="@Url.Content("~/Content/detail.css")" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <title>Thêm sách</title>
+    <title>Thêm điện thoại</title>
 </head>
 <body>
     <div class="main-screen-2">
@@ -28,36 +28,45 @@
             <form action="~/Book/AddBook" method="post" enctype="multipart/form-data">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 left-box" style="padding-left:30px;padding-right:30px;">
                     <div class="book-title">
-                        <h3>Tên sách</h3>
-                        <input id="tenSach" name="tenSach" type="text" style="width:100%;" required/>
-                        <h3>Tác giả</h3>
-                        <input id="tacGia" name="tacGia" type="text" style="width:100%;" />
-                        <h3>SKU</h3>
-                        <input id="sku" name="sku" type="text" style="width:100%;" />
+                        <h3>Tên điện thoại</h3>
+                        <input id="TenDienThoai" name="TenDienThoai" type="text" style="width:100%;" required />
+                        <h3>Màn hình</h3>
+                        <input id="ManHinh" name="ManHinh" type="text" style="width:100%;" required />
+                        <h3>Camera Sau</h3>
+                        <input id="CameraSau" name="CameraSau" type="text" style="width:100%;" />
+                        <h3>Camera Trước</h3>
+                        <input id="CameraTruoc" name="CameraTruoc" type="text" style="width:100%;" />
+                        <h3>Hệ Điều Hành</h3>
+                        <select id="hdh" name="hdh" style="width: 200px; height: 30px; color: #33ca93;">
+                            <option value="Android">Android</option>
+                            <option value="IOS">IOS</option>
+                        </select>              
+                        <h3>CPU</h3>
+                        <input id="CPU" name="CPU" type="text" style="width:100%;" />
                     </div>
                     <hr>
                     <div class="book-price">
                         <h3>Giá bán</h3>
-                        <input id="giaBan" name="giaBan" type="number" min="1000" style="width:100%;" />
+                        <input id="GiaBan" name="GiaBan" type="number" min="10000" style="width:100%;" />
                     </div>
                     <div class="book-count">
                         <h3>Số lượng</h3>
-                        <input id="soLuong" name="soLuong" type="number" min="1" style="width:100%;" />
+                        <input id="SoLuongTon" name="SoLuongTon" type="number" style="width:100%;" />
                     </div>
                     <div class="the-loai">
-                        <h3>Thể loại 1</h3>
+                        <h3>Hãng sản xuất </h3>
                         <select id="tl1" name="tl1">
                             <option value="null" selected></option>
-                            @foreach (var tl in ViewBag.DsTL)
+                            @foreach (var tl1 in ViewBag.DsTL)
                             {
-                                if (tl.HienThiTL)
+                                if (tl1.HienTHiTL)
                                 {
-                                    <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                                    <option value="@tl1.MaHangSanXuat">@tl1.TenHangSanXuat</option>
                                 }
                             }
                         </select>
                     </div>
-                    <div class="the-loai">
+                    @*<div class="the-loai">
                         <h3>Thể loại 2</h3>
                         <select id="tl2" name="tl2">
                             <option value="null" selected></option>
@@ -82,16 +91,16 @@
                                 }
                             }
                         </select>
-                    </div>
+                    </div>*@
 
                     <hr>
                     <div class="book-introduce">
-                        <h3>Giới thiệu sách</h3>
-                        <textarea id="gioiThieuSach" name="gioiThieuSach" style="width:100%; min-height:170px !important;"></textarea>
+                        <h3>Chi tiết điện thoại</h3>
+                        <textarea id="GioiThieuDienThoai" name="GioiThieuDienThoai" style="width:100%; min-height:170px !important;"></textarea>
                     </div>
                     <div class="row" style="margin:10px;">
                         <div class="col-md-6">
-                            <input type="file" name="hinh" id="hinh" />
+                            <input type="file" name="HinhDienThoai" id="HinhDienThoai" />
                         </div>
                         <div class="col-md-6">
                             <button type="submit" class="btn btn-danger" style="margin-left: 10px; width:70px;">Thêm</button>

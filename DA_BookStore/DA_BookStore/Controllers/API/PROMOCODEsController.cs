@@ -14,7 +14,7 @@ namespace DA_BookStore.Controllers.API
 {
     public class PROMOCODEsController : ApiController
     {
-        private BookStore db = new BookStore();
+        private QLPhone db = new QLPhone();
 
         // GET: api/PROMOCODEs
         //public IQueryable<PROMOCODE> GetPROMOCODEs()

@@ -80,15 +80,15 @@
 /* category */
 .category .row {
     background-color: #eee;
-    /*height: 200px;*/  /*Thay doi*/
     margin: 20px 0px;
     border-radius: 5px;
+    height: 200px
 }
 
 .category .book-box {
     width: 150px;
     height: 180px;
-    background-color: #33ca93;
+    background-color: transparent;
     margin: 10px;
 }
 

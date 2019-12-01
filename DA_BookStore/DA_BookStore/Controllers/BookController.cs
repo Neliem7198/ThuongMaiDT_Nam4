@@ -16,18 +16,18 @@ namespace DA_BookStore.Controllers
 
             try
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
 
                     Session["bookID"] = id;
 
                     ViewBag.id = id;
-                    Models.SACH s = db.SACHes.Where(t => t.MaSach == id).FirstOrDefault();
+                    Models.DIENTHOAI s = db.DIENTHOAIs.Where(t => t.MaDienThoai == id).FirstOrDefault();
 
-                    ViewBag.Sach = s;
+                    ViewBag.DienThoai = s;
 
-                    if (s.HienThiS == false)
+                    if (s.HienThiDT == false)
                         return RedirectToAction("Index", "Home");
 
                     Models.KHUYENMAI km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == s.MaKhuyenMai).FirstOrDefault();
@@ -39,54 +39,54 @@ namespace DA_BookStore.Controllers
                         ViewBag.GiaBanHienTai = s.GiaBan * ((100 - km.PhanTramKhuyenMai) * 0.01);
                     }
 
-                   
+
                     if (Session["userID"] != null)
                     {
-                        db.CTXEMSACHes.Add(new Models.CTXEMSACH() { MaSach = id, TenTaiKhoan = Session["userID"].ToString(), NgayXemSach = DateTime.Now });
+                        db.CTXEMs.Add(new Models.CTXEM() { MaDienThoai = id, TenTaiKhoan = Session["userID"].ToString(), NgayXem = DateTime.Now });
                         db.SaveChanges();
                     }
                     s.SoLanTruyCap += 1;
                     db.SaveChanges();
                 }
             }
-            catch {}
+            catch { }
             return View();
         }
         [HttpPost]
-        public ActionResult UpdateBookDetail(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, string tl1, string tl2, string tl3, string soLuong, HttpPostedFileBase hinh )
+        public ActionResult UpdateBookDetail(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
         {
-        	if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-	            using (var db = new Models.BookStore())
-	            {
-	                Models.SACH s = db.SACHes.Find(Session["bookID"]);
-	                s.TenSach = tenSach;
-	                s.TenTacGia = tacGia;
-	                s.SKU = sku;
-	                s.GiaBan = int.Parse(giaBan);
-	                s.GioiThieuSach = gioiThieuSach;
+                using (var db = new Models.QLPhone())
+                {
+                    Models.DIENTHOAI dt = db.DIENTHOAIs.Find(Session["bookID"]);
+                    dt.TenDienThoai = tenDienThoai;
+                    dt.ManHinh = manHinh;
+                    dt.CameraSau = cameraSau;
+                    dt.CameraTruoc = cameraTruoc;
+                    dt.HeDieuHanh = hdh;
+                    dt.CPU = cpu;
+                    dt.GiaBan = int.Parse(giaBan);
+                    dt.GioiThieuDienThoai = gioiThieuDienThoai;
 
-                    s.SoLuongTon = int.Parse(soLuong);
+                    dt.SoLuongTon = int.Parse(soLuongTon);
 
-                    s.MaTL1 = (tl1 == "null") ? null : tl1;
-                    if (tl2 != tl1 || tl2 == null)
-                        s.MaTL2 = (tl2 == "null")? null : tl2;
-                    if ((tl3 != tl2 && tl3 != tl1) || tl3 == null)
-                        s.MaTL3 = (tl3 == "null") ? null : tl3;
+                    dt.MaHangSanXuat = (tl1 == "null") ? null : tl1;
+                   
 
                     if (hinh != null)
-	                {
+                    {
                         try
                         {
                             string _path = "";
-	                        if (hinh.ContentLength > 0)
-	                        {
-	                            string _fileName = System.IO.Path.GetFileName(hinh.FileName);
-	                            _path = System.IO.Path.Combine(Server.MapPath("~/Image/Book"), _fileName);
-	                            hinh.SaveAs(_path);
-	                        }
+                            if (hinh.ContentLength > 0)
+                            {
+                                string _fileName = System.IO.Path.GetFileName(hinh.FileName);
+                                _path = System.IO.Path.Combine(Server.MapPath("~/Image/ "), _fileName);
+                                hinh.SaveAs(_path);
+                            }
 
-	                        s.HinhSach = "Image/Book/" + hinh.FileName;
+                            dt.HinhDienThoai = "Image/DienThoai/" + hinh.FileName;
                         }
                         catch
                         {
@@ -94,12 +94,12 @@ namespace DA_BookStore.Controllers
                         }
                     }
 
-	                db.Entry(s).State = System.Data.Entity.EntityState.Modified;
-	                db.SaveChanges();
-	            }
-	            Session["bookEdit"] = null;
-	            return RedirectToAction("Detail","Book", new { id = Session["BookID"].ToString() });
-	        }
+                    db.Entry(dt).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+                Session["bookEdit"] = null;
+                return RedirectToAction("Detail", "Book", new { id = Session["BookID"].ToString() });
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -117,10 +117,10 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    Models.SACH s = db.SACHes.Find(id);
-                    s.HienThiS = false;
+                    Models.DIENTHOAI s = db.DIENTHOAIs.Find(id);
+                    s.HienThiDT = false;
                     db.Entry(s).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -134,12 +134,12 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
-                    List<Models.SACH> lst = db.SACHes.Where(t => t.HienThiS == true).ToList();
-                    ViewBag.DsS = lst.Skip(15*index).Take(15);
-                    ViewBag.slS = lst.Count();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
+                    List<Models.DIENTHOAI> lst = db.DIENTHOAIs.Where(t => t.HienThiDT == true).ToList();
+                    ViewBag.DsDT = lst.Skip(15 * index).Take(15);
+                    ViewBag.slDT = lst.Count();
                 }
 
                 return View();
@@ -151,12 +151,12 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
-                    List<Models.SACH> lst = db.SACHes.Where(t => t.HienThiS == true && t.TenSach.Contains(id)).ToList();
-                    ViewBag.DsS = lst.Skip(15*index).Take(15);
-                    ViewBag.slS = lst.Count();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
+                    List<Models.DIENTHOAI> lst = db.DIENTHOAIs.Where(t => t.HienThiDT == true && t.TenDienThoai.Contains(id)).ToList();
+                    ViewBag.DsDT = lst.Skip(15 * index).Take(15);
+                    ViewBag.slDT = lst.Count();
                 }
 
                 return View();
@@ -169,9 +169,9 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                 }
 
                 return View();
@@ -179,35 +179,33 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
-        public ActionResult AddBook(string tenSach, string tacGia, string sku, string giaBan, string gioiThieuSach, HttpPostedFileBase hinh, string tl1, string tl2, string tl3, string soLuong)
+        public ActionResult AddBook(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    Models.SACH s = new Models.SACH();
-                    int slS = db.SACHes.ToList().Count() + 1;
+                    Models.DIENTHOAI dt = new Models.DIENTHOAI();
+                    int slDT = db.DIENTHOAIs.ToList().Count() + 1;
 
-                    var maSach = "S" + slS.ToString().PadLeft(9, '0');
+                    var maDT = "DT" + slDT.ToString().PadLeft(8, '0');
 
-                    s.MaSach = maSach;
-                    s.TenSach = tenSach;
-                    s.TenTacGia = tacGia;
-                    s.SKU = sku;
-                    s.GiaBan = int.Parse(giaBan);
-                    s.GioiThieuSach = gioiThieuSach;
-                    s.MaNhaXuatBan = "NXB0000001";
-                    s.SoLanTruyCap = 0;
-                    s.SoLuongTon = int.Parse(soLuong);
-                    s.NgayXuatBan = DateTime.Today;
-
-                    s.MaTL1 = tl1;
-                    if (tl2 != tl1 && tl2 != "null")
-                        s.MaTL2 = tl2;
-                    if (tl3 != tl1 && tl3 != tl2 && tl3 != "null")
-                        s.MaTL3 = tl3;
-
-                    s.HienThiS = true;
+                    dt.MaDienThoai = maDT;
+                    dt.TenDienThoai = tenDienThoai;
+                    dt.ManHinh = manHinh;
+                    dt.CameraSau = cameraSau;
+                    dt.CameraTruoc = cameraTruoc;
+                    dt.HeDieuHanh = hdh;
+                   
+                    dt.CPU = cpu;
+                    dt.GiaBan = int.Parse(giaBan);
+                    dt.SoLanTruyCap = 0;
+                    dt.GioiThieuDienThoai = gioiThieuDienThoai;
+                    dt.SoLuongTon = int.Parse(soLuongTon);
+                    dt.NgayPhatHanh = DateTime.Today;
+                    dt.MaHangSanXuat = tl1;
+                    dt.HienThiDT = true;
+                   
                     if (hinh != null)
                     {
                         try
@@ -216,19 +214,17 @@ namespace DA_BookStore.Controllers
                             if (hinh.ContentLength > 0)
                             {
                                 string _fileName = System.IO.Path.GetFileName(hinh.FileName);
-                                _path = System.IO.Path.Combine(Server.MapPath("~/Image/Book"), _fileName);
+                                _path = System.IO.Path.Combine(Server.MapPath("~/Image/DienThoai"), _fileName);
                                 hinh.SaveAs(_path);
                             }
-                            s.HinhSach = "Image/Book/" + hinh.FileName;
+                            dt.HinhDienThoai = "Image/DienThoai/" + hinh.FileName;
                         }
-                        catch{}
+                        catch {}
                     }
-
-                   
-                    db.SACHes.Add(s);
+                    db.DIENTHOAIs.Add(dt);
                     db.SaveChanges();
 
-                    return RedirectToAction("Detail", "Book", new { id = maSach });
+                    return RedirectToAction("Detail", "Book", new { id = maDT });
                 }
             }
             return RedirectToAction("Index", "Home");

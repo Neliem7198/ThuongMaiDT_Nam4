@@ -16,9 +16,9 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                     List<Models.QUANGCAO> lst = db.QUANGCAOs.Where(t => t.HienThiQC == true).ToList();
                     ViewBag.DsQC = lst.Skip(15 * index).Take(15);
                 }
@@ -32,9 +32,9 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                     List<Models.QUANGCAO> lst = db.QUANGCAOs.Where(t => t.HienThiQC == true && t.TenQC.Contains(maQC)).ToList();
                     ViewBag.DsQC = lst.Skip(15 * index).Take(15);
                 }
@@ -51,12 +51,12 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
                     Models.QUANGCAO qc = db.QUANGCAOs.Find(id);
                     ViewBag.QC = qc;
                     Session["quangcaoID"] = id;
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                 }
             }
             return View();
@@ -67,7 +67,7 @@ namespace DA_BookStore.Controllers
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
 
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
                     Models.QUANGCAO qc = db.QUANGCAOs.Find(Session["quangcaoID"]);
                     qc.TenQC = tenQuangCao;
@@ -102,7 +102,7 @@ namespace DA_BookStore.Controllers
                             if (hinhQuangCao.ContentLength > 0)
                             {
                                 string _fileName = System.IO.Path.GetFileName(hinhQuangCao.FileName);
-                                _path = System.IO.Path.Combine(Server.MapPath("~/Image/QuangCao"), _fileName);
+                                _path = System.IO.Path.Combine(Server.MapPath("~/Image/ "), _fileName);
                                 hinhQuangCao.SaveAs(_path);
                             }
                             qc.HinhQC = "Image/QuangCao/" + hinhQuangCao.FileName;
@@ -126,7 +126,7 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
                     Models.QUANGCAO qc = db.QUANGCAOs.Find(id);
                     qc.HienThiQC = false;
@@ -145,9 +145,9 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                 }
 
                 return View();
@@ -162,7 +162,7 @@ namespace DA_BookStore.Controllers
             {
                
                 
-                    using (var db = new Models.BookStore())
+                    using (var db = new Models.QLPhone())
                     {
                         Models.QUANGCAO qc = new Models.QUANGCAO();
 
@@ -224,7 +224,7 @@ namespace DA_BookStore.Controllers
         //GET BANNER
         public string getBanner()
         {
-            using (var db = new Models.BookStore())
+            using (var db = new Models.QLPhone())
             {
                 int count = db.QUANGCAOs.Where(i => i.ViTriQuangCao == "vitri0").Count();
                 if (count > 0)

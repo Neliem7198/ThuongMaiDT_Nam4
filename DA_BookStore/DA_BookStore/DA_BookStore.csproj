@@ -158,6 +158,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PromoPhonesController.cs" />
     <Compile Include="Controllers\PromotionController.cs" />
     <Compile Include="Controllers\QuangCaoController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -165,24 +166,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BookStore.cs" />
+    <Compile Include="Models\BINHLUAN.cs" />
     <Compile Include="Models\CTGIOHANG.cs" />
     <Compile Include="Models\CTHOADONMUAHANG.cs" />
-    <Compile Include="Models\CTXEMSACH.cs" />
+    <Compile Include="Models\CTXEM.cs" />
+    <Compile Include="Models\DIENTHOAI.cs" />
+    <Compile Include="Models\HANGSANXUAT.cs" />
     <Compile Include="Models\HOADONMUAHANG.cs" />
     <Compile Include="Models\KHUYENMAI.cs" />
     <Compile Include="Models\NHANVIEN.cs" />
-    <Compile Include="Models\NHAXUATBAN.cs" />
     <Compile Include="Models\PROMOCODE.cs" />
+    <Compile Include="Models\QLPhone.cs" />
     <Compile Include="Models\QUANGCAO.cs" />
-    <Compile Include="Models\SACH.cs" />
     <Compile Include="Models\TAIKHOAN.cs" />
-    <Compile Include="Models\Temp\BillView.cs" />
-    <Compile Include="Models\Temp\CTGioHangViewModel.cs" />
-    <Compile Include="Models\Temp\GroupCusView.cs" />
-    <Compile Include="Models\Temp\HistoryView.cs" />
-    <Compile Include="Models\Temp\PromotionView.cs" />
-    <Compile Include="Models\THELOAI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -191,13 +187,13 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\payment.css" />
+    <Content Include="Content\promotion.css" />
     <Content Include="Content\quangcao.css" />
     <Content Include="Content\search.css" />
     <Content Include="Content\signup.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\account.css" />
     <Content Include="Content\themQc.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -212,9 +208,19 @@
     <Content Include="Image\Book\VuTruTrongVoHatDe.jpg" />
     <Content Include="Image\Content\content1.png" />
     <Content Include="Image\Content\content2.png" />
+    <Content Include="Image\DienThoai\apple-iphone-11-1-2.png" />
+    <Content Include="Image\DienThoai\galaxy-s10-plus-review-feat-382x238-c.jpg" />
+    <Content Include="Image\DienThoai\iphone-11-pro-max-space-select-2019.png" />
+    <Content Include="Image\DienThoai\iphone-x-1-15368585961021570385538.jpg" />
+    <Content Include="Image\DienThoai\samsung-galaxy-s10-white-400x460.png" />
+    <Content Include="Image\DienThoai\SMG935edge_hero_102116.jpg" />
+    <Content Include="Image\galaxy-s10-plus-review-feat-382x238-c.jpg" />
+    <Content Include="Image\iphone-11-pro-max-space-select-2019.png" />
     <Content Include="Image\login.jpg" />
-    <Content Include="Image\logo.png" />
+    <Content Include="Image\logo1.png" />
+    <Content Include="Image\newPhone.png" />
     <Content Include="Image\Sale\km1.png" />
+    <Content Include="Image\samsung-galaxy-s10-white-400x460.png" />
     <Content Include="Image\thumb.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -243,6 +249,9 @@
     <Content Include="Content\home.css" />
     <Content Include="Content\detail.css" />
     <Content Include="Scripts\PaymentScript.js" />
+    <Content Include="Views\Promotion\AddPromotion.cshtml" />
+    <Content Include="Views\Promotion\DetailPromotion.cshtml" />
+    <Content Include="Views\Promotion\PromotionManage.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -274,12 +283,11 @@
     <Content Include="Views\QuangCao\QCDetail.cshtml" />
     <Content Include="Views\QuangCao\AddQuangCao.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />
-    <Content Include="Views\Promotion\AddPromotion.cshtml" />
-    <Content Include="Views\Promotion\DetailPromotion.cshtml" />
-    <Content Include="Views\Promotion\PromotionManage.cshtml" />
+    <Content Include="Views\PromoPhones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Image\QuangCao\" />
     <Folder Include="Views\Views\" />
   </ItemGroup>
   <ItemGroup>

@@ -22,114 +22,121 @@
 		<title>Sửa khuyến mãi</title>
 	</head>
 	<body id="body">
-		<div class="container-fluid">
-			<h3 class="h3-pmt get-center">SỬA KHUYẾN MÃI</h3>
-			<form method="post" id="post-form">
-				<div class="add-pmt-box get-center pmt-box">
-					
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<div class="row">
-								<p>Mã khuyến mãi</p>
-							</div>
-							<div class="row">
-								<input type="text" name="maKM" id="maKM" class="ipt-info" readonly style="background-color: #ddd;" value="@ViewBag.KhuyenMai.MaKhuyenMai">
-							</div>
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<div class="row">
-								<p>Tên khuyến mãi</p>
-							</div>
-							<div class="row">
-								<input type="text" name="tenKhuyenMai" id="tenKM" class="ipt-info" required value="@ViewBag.KhuyenMai.TenKhuyenMai">
-							</div>
-						</div>
-					</div>
+        @if (ViewBag.KhuyenMai != null)
+        {
+        <div class="container-fluid">
+            @using (Html.BeginForm("UpdatePromotion", "Promotion", FormMethod.Post))
+            {
+                <h3 class="h3-pmt get-center">SỬA KHUYẾN MÃI</h3>
 
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<div class="row">
-								<p>Ngày bắt đầu</p>
-							</div>
-							<div class="row">
-								<input type="datetime-local" name="ngayBatDau" id="ngayBD" class="ipt-info" required value="@ViewBag.KhuyenMai.NgayBatDau">
-							</div>
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<div class="row">
-								<p>Ngày kết thúc</p>
-							</div>
-							<div class="row">
-								<input type="datetime-local" name="ngayKetThuc" id="ngayKT" class="ipt-info" required value="@ViewBag.KhuyenMai.NgayKetThuc">
-							</div>
-						</div>
-						<script>
-							t = new Date();
-							t = t.toJSON().slice(0,19)
-							t = t.substring(0, t.length - 3)
+                <div class="add-pmt-box get-center pmt-box">
 
-							var tomorrow = new Date();
-							tomorrow.setDate(tomorrow.getDate() + 1);
-							t2 = tomorrow.toJSON().slice(0,19)
-							t2 = t2.substring(0, t2.length - 3)
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="row">
+                                <p>Mã khuyến mãi</p>
+                            </div>
+                            <div class="row">
+                                <input type="text" name="maKM" id="maKM" class="ipt-info" readonly style="background-color: #ddd;" value="@ViewBag.KhuyenMai.MaKhuyenMai">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="row">
+                                <p>Tên khuyến mãi</p>
+                            </div>
+                            <div class="row">
+                                <input type="text" name="tenKhuyenMai" id="tenKM" class="ipt-info" required value="@ViewBag.KhuyenMai.TenKhuyenMai">
+                            </div>
+                        </div>
+                    </div>
 
-							document.getElementById('ngayBD').value = t
-							document.getElementById('ngayKT').value = t2
-						</script>
-					</div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="row">
+                                <p>Ngày bắt đầu</p>
+                            </div>
+                            <div class="row">
+                                <input type="datetime-local" name="ngayBatDau" id="ngayBD" class="ipt-info" required value="@ViewBag.KhuyenMai.NgayBatDau">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="row">
+                                <p>Ngày kết thúc</p>
+                            </div>
+                            <div class="row">
+                                <input type="datetime-local" name="ngayKetThuc" id="ngayKT" class="ipt-info" required value="@ViewBag.KhuyenMai.NgayKetThuc">
+                            </div>
+                        </div>
+                        <script>
+                            t = new Date();
+                            t = t.toJSON().slice(0, 19)
+                            t = t.substring(0, t.length - 3)
 
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-							<p>Phần trăm khuyến mãi</p>
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 quantity">
-							<input type="number" min="5" max="80" step="5" value="5" class="ipt-info" name="phanTramKhuyenMai" id="phanTram" value="@ViewBag.KhuyenMai.PhanTramKhuyenMai">
-						</div>
-					</div>
+                            var tomorrow = new Date();
+                            tomorrow.setDate(tomorrow.getDate() + 1);
+                            t2 = tomorrow.toJSON().slice(0, 19)
+                            t2 = t2.substring(0, t2.length - 3)
 
-					<!--Tab-->
-					<div class="tab">
-			  			<button class="tablinks" type="button" onclick="openCity(event, 'byType')">Theo thể loại</button>
-			  			<button class="tablinks" type="button" onclick="openCity(event, 'byName')">Theo tên sách</button>
-					</div>
+                            document.getElementById('ngayBD').value = t
+                            document.getElementById('ngayKT').value = t2
+                        </script>
+                    </div>
 
-					<div id="byType" class="tabcontent" style="display: block">
-						<div>
-							<input class="search" type="text" placeholder="Nhập tên thể loại cần tìm">
-							<button class="btn-search"><i class="fas fa-search"></i></button>
-						</div>
-						<div class="scrollable" >
-							@foreach (var item in ViewBag.DsTL)
-							{
-								<label class="container"> @item.TenTheLoai
-								  	<input type="checkbox" name="TL" value="@item.MaTheLoai">
-								  	<span class="checkmark"></span>
-								</label>
-							}
-						</div>	
-					</div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <p>Phần trăm khuyến mãi</p>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 quantity">
+                            <input type="number" min="5" max="80" step="5" value="5" class="ipt-info" name="phanTramKhuyenMai" id="phanTram" value="@ViewBag.KhuyenMai.PhanTramKhuyenMai">
+                        </div>
+                    </div>
 
-					<div id="byName" class="tabcontent">
-					  	<div>
-							<input class="search" type="text" placeholder="Nhập tên sách cần tìm">
-							<button class="btn-search"><i class="fas fa-search"></i></button>
-						</div>
-						<div class="scrollable">
-							<label class="container">One
-							  	<input type="checkbox">
-							  	<span class="checkmark"></span>
-							</label>
-						</div>	
-					</div>				
-				</div>
-				<div class="row get-center submit-box">
-					<div class="submit-item">
-						<button type="submit" onclick="submitPromotion()" class="btn-submit">Lưu</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		
+                    <!--Tab-->
+                    <div class="tab">
+                        <button class="tablinks" type="button" onclick="openCity(event, 'byType')">Theo thể loại</button>
+                        <button class="tablinks" type="button" onclick="openCity(event, 'byName')">Theo tên sách</button>
+                    </div>
+
+                    <div id="byType" class="tabcontent" style="display: block">
+                        <div>
+                            <input class="search" type="text" placeholder="Nhập tên thể loại cần tìm">
+                            <button class="btn-search"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="scrollable">
+                            @foreach (var item in ViewBag.DsTL)
+                            {
+                                <label class="container">
+                                    @item.TenTheLoai
+                                    <input type="checkbox" name="TL" value="@item.MaTheLoai">
+                                    <span class="checkmark"></span>
+                                </label>
+                            }
+                        </div>
+                    </div>
+
+                    <div id="byName" class="tabcontent">
+                        <div>
+                            <input class="search" type="text" placeholder="Nhập tên sách cần tìm">
+                            <button class="btn-search"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="scrollable">
+                            <label class="container">
+                                One
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row get-center submit-box">
+                    <div class="submit-item">
+                        <button type="submit" onclick="submitPromotion()" class="btn-submit">Lưu</button>
+                    </div>
+                </div>
+            }
+
+        </div>
+
 		<script>
 			function openCity(evt, cityName) {
   				var i, tabcontent, tablinks;
@@ -202,5 +209,6 @@
 	            });
 			});
 		</script>
+        }
 	</body>
 	</html>

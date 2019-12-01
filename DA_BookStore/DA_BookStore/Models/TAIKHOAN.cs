@@ -12,8 +12,9 @@ namespace DA_BookStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TAIKHOAN()
         {
+            BINHLUANs = new HashSet<BINHLUAN>();
             CTGIOHANGs = new HashSet<CTGIOHANG>();
-            CTXEMSACHes = new HashSet<CTXEMSACH>();
+            CTXEMs = new HashSet<CTXEM>();
             HOADONMUAHANGs = new HashSet<HOADONMUAHANG>();
         }
 
@@ -44,10 +45,13 @@ namespace DA_BookStore.Models
         public bool? HienThiTK { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BINHLUAN> BINHLUANs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTGIOHANG> CTGIOHANGs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTXEMSACH> CTXEMSACHes { get; set; }
+        public virtual ICollection<CTXEM> CTXEMs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADONMUAHANG> HOADONMUAHANGs { get; set; }

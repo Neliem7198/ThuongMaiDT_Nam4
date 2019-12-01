@@ -14,7 +14,7 @@ namespace DA_BookStore.Controllers.API
 {
     public class CTGIOHANGsController : ApiController
     {
-        private BookStore db = new BookStore();
+        private QLPhone db = new QLPhone();
 
         // GET: api/CTGIOHANGs
         public IQueryable<CTGIOHANG> GetCTGIOHANGs()
@@ -44,7 +44,7 @@ namespace DA_BookStore.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            if (id != cTGIOHANG.MaSach)
+            if (id != cTGIOHANG.MaDienThoai)
             {
                 return BadRequest();
             }
@@ -87,7 +87,7 @@ namespace DA_BookStore.Controllers.API
             }
             catch (DbUpdateException)
             {
-                if (CTGIOHANGExists(cTGIOHANG.MaSach))
+                if (CTGIOHANGExists(cTGIOHANG.MaDienThoai))
                 {
                     return Conflict();
                 }
@@ -97,7 +97,7 @@ namespace DA_BookStore.Controllers.API
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = cTGIOHANG.MaSach }, cTGIOHANG);
+            return CreatedAtRoute("DefaultApi", new { id = cTGIOHANG.MaDienThoai }, cTGIOHANG);
         }
 
         // DELETE: api/CTGIOHANGs/5
@@ -127,7 +127,7 @@ namespace DA_BookStore.Controllers.API
 
         private bool CTGIOHANGExists(string id)
         {
-            return db.CTGIOHANGs.Count(e => e.MaSach == id) > 0;
+            return db.CTGIOHANGs.Count(e => e.MaDienThoai == id) > 0;
         }
     }
 }

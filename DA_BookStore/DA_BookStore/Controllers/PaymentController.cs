@@ -19,17 +19,17 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userID"] != null)
             {
-                using (var db = new BookStore())
+                using (var db = new QLPhone())
                 {
-                    ViewBag.DsSachDeal = db.SACHes.Where(t => t.KHUYENMAI.NgayKetThuc > DateTime.Now && t.HienThiS == true).Take(5).ToList();
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsSachDeal = db.DIENTHOAIs.Where(t => t.KHUYENMAI.NgayKetThuc > DateTime.Now && t.HienThiDT == true).Take(5).ToList();
+                    ViewBag.DsTL = db.DIENTHOAIs.ToList();
 
                     string temp = Session["userID"].ToString();
 
                     var query = from gh in db.CTGIOHANGs
-                                join s in db.SACHes on gh.MaSach equals s.MaSach
+                                join s in db.DIENTHOAIs on gh.MaDienThoai equals s.MaDienThoai
                                 where gh.TenTaiKhoan == temp
-                                select new {gh.SoLuongGioHang, s.MaSach, s.MaKhuyenMai, s.GiaBan };
+                                select new {gh.SoLuongGioHang, s.MaDienThoai, s.MaKhuyenMai, s.GiaBan };
 
                     KHUYENMAI km = new KHUYENMAI();
                     double? tamTinh = 0;
@@ -63,7 +63,7 @@ namespace DA_BookStore.Controllers
 
             string tenTaiKhoan = Session["userID"].ToString();
 
-            using (var db = new BookStore())
+            using (var db = new QLPhone())
             {
                 var sql = from c in db.CTGIOHANGs
                           where c.TenTaiKhoan == tenTaiKhoan
@@ -74,8 +74,8 @@ namespace DA_BookStore.Controllers
                 bool flag = false;
                 foreach (var item in cartTemp)
                 {
-                    var sachTemp = db.SACHes.Find(item.MaSach);
-                    string message = '"' + sachTemp.TenSach + '"' + " hiện tại trong kho chỉ còn: " + sachTemp.SoLuongTon;
+                    var sachTemp = db.DIENTHOAIs.Find(item.MaDienThoai);
+                    string message = '"' + sachTemp.TenDienThoai + '"' + " hiện tại trong kho chỉ còn: " + sachTemp.SoLuongTon;
 
                     if ((sachTemp.SoLuongTon -= item.SoLuongGioHang) < 0)
                     {
@@ -104,11 +104,11 @@ namespace DA_BookStore.Controllers
                     int? tongTien = 0;
                     foreach (var item in cartTemp)
                     {
-                       var sachTemp = db.SACHes.Find(item.MaSach);
+                       var sachTemp = db.DIENTHOAIs.Find(item.MaDienThoai);
                         sachTemp.SoLuongTon -= item.SoLuongGioHang;
 
                         CTHOADONMUAHANG ctHD = new CTHOADONMUAHANG();
-                        ctHD.MaSach = item.MaSach;
+                        ctHD.MaDienThoai = item.MaDienThoai;
                         ctHD.MaHDMua = hd.MaHDMua;
                         ctHD.SoLuongMua = item.SoLuongGioHang;
                         ctHD.GiaHienHanh = item.SoLuongGioHang * sachTemp.GiaBan;
@@ -122,7 +122,7 @@ namespace DA_BookStore.Controllers
                     a = hdmua.TongTien;
                     foreach (var item in sql)
                     {
-                        var ctgh = db.CTGIOHANGs.Find(item.MaSach,item.TenTaiKhoan);
+                        var ctgh = db.CTGIOHANGs.Find(item.MaDienThoai,item.TenTaiKhoan);
                         db.Entry(ctgh).State = EntityState.Deleted;
                     }
                     

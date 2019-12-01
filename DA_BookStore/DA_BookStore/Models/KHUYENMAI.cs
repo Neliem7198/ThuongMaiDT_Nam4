@@ -12,7 +12,7 @@ namespace DA_BookStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHUYENMAI()
         {
-            SACHes = new HashSet<SACH>();
+            DIENTHOAIs = new HashSet<DIENTHOAI>();
         }
 
         [Key]
@@ -31,6 +31,6 @@ namespace DA_BookStore.Models
         public bool? HienThiKM { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SACH> SACHes { get; set; }
+        public virtual ICollection<DIENTHOAI> DIENTHOAIs { get; set; }
     }
 }

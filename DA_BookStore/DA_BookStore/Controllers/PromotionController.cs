@@ -9,13 +9,31 @@ namespace DA_BookStore.Controllers
     public class PromotionController : Controller
     {
         [HttpGet]
+        public ActionResult DetailPromotion(string id = "")
+        {
+            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            {
+                using (var db = new Models.QLPhone())
+                {
+                    Models.KHUYENMAI km = db.KHUYENMAIs.Find(id);
+                    ViewBag.KhuyenMai = km;
+                    Session["promotionID"] = id;
+                    km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == id).FirstOrDefault();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
+                }
+                return View();
+
+            }
+            return RedirectToAction("Index","Home");
+        }
+        [HttpGet]
         public ActionResult PromotionManage(int index = 0)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                     List<Models.KHUYENMAI> lst = db.KHUYENMAIs.Where(t => t.HienThiKM == true).ToList();
                     ViewBag.DsKM = lst.Skip(15 * index).Take(15);
                     ViewBag.slKM = lst.Count();
@@ -30,9 +48,9 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                     List<Models.KHUYENMAI> lst = db.KHUYENMAIs.Where(t => t.HienThiKM == true && t.TenKhuyenMai.Contains(id)).ToList();
                     ViewBag.DsS = lst.Skip(15 * index).Take(15);
                     ViewBag.slS = lst.Count();
@@ -48,9 +66,9 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
                 }
 
                 return View();
@@ -62,11 +80,11 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
                     Models.KHUYENMAI km = new Models.KHUYENMAI();
                     int slKM = db.KHUYENMAIs.ToList().Count() + 1;
-
+                        
                     var maKM = "KM" + slKM.ToString().PadLeft(8, '0');
 
                     km.MaKhuyenMai = maKM;
@@ -91,12 +109,12 @@ namespace DA_BookStore.Controllers
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
                     Models.KHUYENMAI km = db.KHUYENMAIs.Find(id);
                     km.HienThiKM = false;
 
-                    List<Models.SACH> listS = db.SACHes.Where(s => s.MaKhuyenMai == id).ToList();
+                    List<Models.DIENTHOAI> listS = db.DIENTHOAIs.Where(s => s.MaKhuyenMai == id).ToList();
                     foreach (var item in listS)
                     {
                         item.MaKhuyenMai = null;
@@ -110,34 +128,35 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Home", "Home");
         }
 
-        [HttpGet]
-        public ActionResult UpdatePromotion(string id)
-        {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
-            {
-                using (var db = new Models.BookStore())
-                {
-                    ViewBag.DsTL = db.THELOAIs.ToList();
+        //[HttpGet]
+        //public ActionResult PromotionUpdate(string id)
+        //{
+        //    if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+        //    {
+        //        using (var db = new Models.QLPhone())
+        //        {
+        //            ViewBag.DsTL = db.HANGSANXUATs.ToList();
 
-                    Session["promotionID"] = id;
+        //            Session["promotionID"] = id;
 
-                    ViewBag.id = id;
-                    Models.KHUYENMAI km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == id).FirstOrDefault();
+        //            ViewBag.id = id;
+        //            Models.KHUYENMAI km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == id).FirstOrDefault();
 
-                    ViewBag.KhuyenMai = km;
+        //            ViewBag.KhuyenMai = km;
 
-                    if (km.HienThiKM == false)
-                        return RedirectToAction("Home", "Home");
-                }
-            }
-            return View();
-        }
+        //            if (km.HienThiKM == false)
+        //                return RedirectToAction("Home", "Home");
+        //        }
+               
+        //    }
+        //    return View();
+        //}
         [HttpPost]
         public ActionResult UpdatePromotion(string tenKhuyenMai, string ngayBatDau, string ngayKetThuc, string phanTramKhuyenMai, List<string> dsTL)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
-                using (var db = new Models.BookStore())
+                using (var db = new Models.QLPhone())
                 {
                     Models.KHUYENMAI km = db.KHUYENMAIs.Find(Session["promotionID"]);
                     km.TenKhuyenMai = tenKhuyenMai;
@@ -158,9 +177,9 @@ namespace DA_BookStore.Controllers
 
         private void UpdateBookPromotion(string maKM, List<string> dsTL)
         {
-            using (var db = new Models.BookStore())
+            using (var db = new Models.QLPhone())
             {
-                List<Models.SACH> listS = db.SACHes.ToList();
+                List<Models.DIENTHOAI> listS = db.DIENTHOAIs.ToList();
 
                 foreach (var s in listS)
                 {
@@ -175,7 +194,7 @@ namespace DA_BookStore.Controllers
                 {
                     foreach (var s in listS)
                     {
-                        if (s.MaTL1 == tl || s.MaTL2 == tl || s.MaTL3 == tl)
+                        if (s.MaHangSanXuat == tl)
                         {
                             s.MaKhuyenMai = maKM;
                             db.Entry(s).State = System.Data.Entity.EntityState.Modified;
