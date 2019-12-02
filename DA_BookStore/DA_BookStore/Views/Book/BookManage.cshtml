@@ -56,20 +56,24 @@
                             <th>Tên điện thoại</th>
                             <th>File hình</th>
                             <th>Hãng</th>
+
                             <th>Giá bán</th>
+                            <th>Giá nhập</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in ViewBag.DsDT)
                         {
-                            <tr>
-                                <td><a href="~/Book/Detail?id=@item.MaDienThoai" style="display:block; text-decoration:none;">@item.MaDienThoai</a></td>
-                                <td>@item.TenDienThoai</td>
-                                
-                                <td><a href="~/@item.HinhDienThoai" style="display:block; text-decoration:none;">@item.HinhDienThoai</a></td>
-                                <td>@item.MaHangSanXuat</td>
-                                <td>@item.GiaBan</td>
-                            </tr>
+                        <tr>
+                            <td><a href="~/Book/Detail?id=@item.MaDienThoai" style="display:block; text-decoration:none;">@item.MaDienThoai</a></td>
+                            <td>@item.TenDienThoai</td>
+
+                            <td><a href="~/@item.HinhDienThoai" style="display:block; text-decoration:none;">@item.HinhDienThoai</a></td>
+                            <td>@item.MaHangSanXuat</td>
+                            
+                            <td>@item.GiaBan</td>
+
+                        </tr>
                         }
                     </tbody>
                 </table>

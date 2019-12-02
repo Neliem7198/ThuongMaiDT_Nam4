@@ -250,7 +250,6 @@
     <Content Include="Content\detail.css" />
     <Content Include="Scripts\PaymentScript.js" />
     <Content Include="Views\Promotion\AddPromotion.cshtml" />
-    <Content Include="Views\Promotion\DetailPromotion.cshtml" />
     <Content Include="Views\Promotion\PromotionManage.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -284,6 +283,7 @@
     <Content Include="Views\QuangCao\AddQuangCao.cshtml" />
     <Content Include="Views\Graph\Index.cshtml" />
     <Content Include="Views\PromoPhones\Index.cshtml" />
+    <Content Include="Views\Promotion\UpdatePromotion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

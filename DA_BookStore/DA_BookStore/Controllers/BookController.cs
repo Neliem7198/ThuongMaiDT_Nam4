@@ -53,7 +53,7 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UpdateBookDetail(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
+        public ActionResult UpdateBookDetail(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string giaNhap, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -67,8 +67,8 @@ namespace DA_BookStore.Controllers
                     dt.HeDieuHanh = hdh;
                     dt.CPU = cpu;
                     dt.GiaBan = int.Parse(giaBan);
+                    dt.GiaNhap = int.Parse(giaNhap);
                     dt.GioiThieuDienThoai = gioiThieuDienThoai;
-
                     dt.SoLuongTon = int.Parse(soLuongTon);
 
                     dt.MaHangSanXuat = (tl1 == "null") ? null : tl1;
@@ -82,7 +82,7 @@ namespace DA_BookStore.Controllers
                             if (hinh.ContentLength > 0)
                             {
                                 string _fileName = System.IO.Path.GetFileName(hinh.FileName);
-                                _path = System.IO.Path.Combine(Server.MapPath("~/Image/ "), _fileName);
+                                _path = System.IO.Path.Combine(Server.MapPath("~/Image/DienThoai "), _fileName);
                                 hinh.SaveAs(_path);
                             }
 
@@ -98,7 +98,7 @@ namespace DA_BookStore.Controllers
                     db.SaveChanges();
                 }
                 Session["bookEdit"] = null;
-                return RedirectToAction("Detail", "Book", new { id = Session["BookID"].ToString() });
+                return RedirectToAction("Detail", "Book", new { id = Session["bookID"].ToString() });
             }
             return RedirectToAction("Index", "Home");
         }
@@ -138,8 +138,9 @@ namespace DA_BookStore.Controllers
                 {
                     ViewBag.DsTL = db.HANGSANXUATs.ToList();
                     List<Models.DIENTHOAI> lst = db.DIENTHOAIs.Where(t => t.HienThiDT == true).ToList();
-                    ViewBag.DsDT = lst.Skip(15 * index).Take(15);
+
                     ViewBag.slDT = lst.Count();
+                    ViewBag.DsDT = lst.Skip(15 * index).Take(15);
                 }
 
                 return View();
@@ -179,7 +180,7 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
-        public ActionResult AddBook(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
+        public ActionResult AddBook(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string giaNhap, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -195,10 +196,10 @@ namespace DA_BookStore.Controllers
                     dt.ManHinh = manHinh;
                     dt.CameraSau = cameraSau;
                     dt.CameraTruoc = cameraTruoc;
-                    dt.HeDieuHanh = hdh;
-                   
+                    dt.HeDieuHanh = hdh;                 
                     dt.CPU = cpu;
                     dt.GiaBan = int.Parse(giaBan);
+                    dt.GiaNhap = int.Parse(giaNhap);
                     dt.SoLanTruyCap = 0;
                     dt.GioiThieuDienThoai = gioiThieuDienThoai;
                     dt.SoLuongTon = int.Parse(soLuongTon);

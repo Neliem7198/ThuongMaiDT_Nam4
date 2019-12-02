@@ -32,7 +32,7 @@
                                 <h3>Khuyến mãi <span class="badge">(@ViewBag.slKM)</span></h3>
                             </div>
                             <div class="col-md-3" style="margin-top:15px;">
-                                <a href="~/Promotion/AddPromotion"><button class="btn btn-danger" type="submit">Thêm khuyến mãi</button></a>
+                                <a href="~/Promotion/AddPromotion" ><button class="btn btn-danger" type="submit">Thêm khuyến mãi</button></a>
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,10 @@
                                 <td>@item.NgayBatDau</td>
                                 <td>@item.NgayKetThuc</td>
                                 <td>@item.PhanTramKhuyenMai</td>
-                                <td><a href="~/Promotion/DetailPromotion/@item.MaKhuyenMai">Sửa</a><td/> 
-                                <td><a href="~/Promotion/DeletePromotion/@item.MaKhuyenMai">Xóa</a></td>
+                                <td>
+                                    <a href="~/Promotion/UpdatePromotion?id=@item.MaKhuyenMai">Sửa</a>
+                                    <a href="~/Promotion/DeletePromotion/@item.MaKhuyenMai">Xóa</a>
+                                </td>
                             </tr>
                         }
                     </tbody>

@@ -51,6 +51,7 @@ namespace DA_BookStore.Controllers
                             }
                         }
                     }
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return RedirectToAction("Index", "Home");

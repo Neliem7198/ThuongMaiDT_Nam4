@@ -9,25 +9,7 @@ namespace DA_BookStore.Controllers
     public class PromotionController : Controller
     {
         [HttpGet]
-        public ActionResult DetailPromotion(string id = "")
-        {
-            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
-            {
-                using (var db = new Models.QLPhone())
-                {
-                    Models.KHUYENMAI km = db.KHUYENMAIs.Find(id);
-                    ViewBag.KhuyenMai = km;
-                    Session["promotionID"] = id;
-                    km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == id).FirstOrDefault();
-                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
-                }
-                return View();
-
-            }
-            return RedirectToAction("Index","Home");
-        }
-        [HttpGet]
-        public ActionResult PromotionManage(int index = 0)
+        public ActionResult PromotionManage(int index = 0 )
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -41,7 +23,7 @@ namespace DA_BookStore.Controllers
 
                 return View();
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public ActionResult PromotionManage(string id, int index)
@@ -52,13 +34,13 @@ namespace DA_BookStore.Controllers
                 {
                     ViewBag.DsTL = db.HANGSANXUATs.ToList();
                     List<Models.KHUYENMAI> lst = db.KHUYENMAIs.Where(t => t.HienThiKM == true && t.TenKhuyenMai.Contains(id)).ToList();
-                    ViewBag.DsS = lst.Skip(15 * index).Take(15);
-                    ViewBag.slS = lst.Count();
+                    ViewBag.DsKM = lst.Skip(15 * index).Take(15);
+                    ViewBag.slKM = lst.Count();
                 }
 
                 return View();
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -128,29 +110,28 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Home", "Home");
         }
 
-        //[HttpGet]
-        //public ActionResult PromotionUpdate(string id)
-        //{
-        //    if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
-        //    {
-        //        using (var db = new Models.QLPhone())
-        //        {
-        //            ViewBag.DsTL = db.HANGSANXUATs.ToList();
+        [HttpGet]
+        public ActionResult UpdatePromotion(string id = "")
+        {
+            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            {
+                using (var db = new Models.QLPhone())
+                {
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
 
-        //            Session["promotionID"] = id;
+                    Session["promotionID"] = id;
 
-        //            ViewBag.id = id;
-        //            Models.KHUYENMAI km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == id).FirstOrDefault();
+                    ViewBag.id = id;
+                    Models.KHUYENMAI km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == id).FirstOrDefault();
 
-        //            ViewBag.KhuyenMai = km;
-
-        //            if (km.HienThiKM == false)
-        //                return RedirectToAction("Home", "Home");
-        //        }
-               
-        //    }
-        //    return View();
-        //}
+                    ViewBag.KhuyenMai = km;
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
+                    if (km.HienThiKM == false)
+                        return RedirectToAction("Home", "Home");
+                }
+            }
+            return View();
+        }
         [HttpPost]
         public ActionResult UpdatePromotion(string tenKhuyenMai, string ngayBatDau, string ngayKetThuc, string phanTramKhuyenMai, List<string> dsTL)
         {

@@ -227,9 +227,12 @@
                         <hr>
                         <div class="book-price">
                             <h3>Giá bán</h3>
-                            <input id="giaBan" name="giaBan" type="number" value="@ViewBag.DienTHoai.GiaBan" min="1000" style="width:100%;" />
+                            <input id="giaBan" name="giaBan" type="number" value="@ViewBag.DienThoai.GiaBan" min="1000" style="width:100%;" />
                         </div>
-
+                        <div class="book-price-add">
+                            <h3>Giá nhập</h3>
+                            <input id="giaNhap" name="giaNhap" type="number" value="@ViewBag.DienThoai.GiaNhap" min="1000" style="width:100%;" />
+                        </div>
                         <hr>
                         <div class="book-count">
                             <h3>Số lượng</h3>
@@ -256,63 +259,63 @@
                             </select>
                         </div>
                         @*<div class="the-loai">
-                            <h3>Thể loại 2</h3>
-                            <select id="tl2" name="tl2">
-                                <option value="null"></option>
-                                @foreach (var tl in ViewBag.DsTL)
-                                {
-                                    if (ViewBag.Sach.MaTL2 != null && ViewBag.Sach.MaTL2.ToString() == tl.MaTheLoai)
-                                    {
-                                        if (tl.HienThiTL)
-                                        {
-                                            if (ViewBag.Sach.MaTL1 != null && ViewBag.Sach.MaTL1.ToString() == tl.MaTheLoai)
-                                            {
-                                                <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
-                                            }
-                                        }
-                                    }
-                                }
-                                </select>
-                            </div>
-                            <div class="the-loai">
-                                <h3>Thể loại 2</h3>
-                                <select id="tl2" name="tl2">
-                                    <option value="null"></option>
-                                    @foreach (var tl in ViewBag.DsTL)
-                                    {
-                                        if (ViewBag.Sach.MaTL2 != null && ViewBag.Sach.MaTL2.ToString() == tl.MaTheLoai)
-                                        {
-                                            <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
-                                        }
-                                    }
-                                }
-                            </select>
-                        </div>
-                        <div class="the-loai">
-                            <h3>Thể loại 3</h3>
-                            <select id="tl3" name="tl3">
-                                <option value="null"></option>
-                                @foreach (var tl in ViewBag.DsTL)
-                                {
-                                    if (ViewBag.Sach.MaTL3 != null && ViewBag.Sach.MaTL3.ToString() == tl.MaTheLoai)
-                                    {
-                                        <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
-                                    }
-                                }
-                            </select>
-                        </div>*@
+            <h3>Thể loại 2</h3>
+            <select id="tl2" name="tl2">
+                <option value="null"></option>
+                @foreach (var tl in ViewBag.DsTL)
+                {
+                    if (ViewBag.Sach.MaTL2 != null && ViewBag.Sach.MaTL2.ToString() == tl.MaTheLoai)
+                    {
+                        if (tl.HienThiTL)
+                        {
+                            if (ViewBag.Sach.MaTL1 != null && ViewBag.Sach.MaTL1.ToString() == tl.MaTheLoai)
+                            {
+                                <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                            }
+                            else
+                            {
+                                <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                            }
+                        }
+                    }
+                }
+                </select>
+            </div>
+            <div class="the-loai">
+                <h3>Thể loại 2</h3>
+                <select id="tl2" name="tl2">
+                    <option value="null"></option>
+                    @foreach (var tl in ViewBag.DsTL)
+                    {
+                        if (ViewBag.Sach.MaTL2 != null && ViewBag.Sach.MaTL2.ToString() == tl.MaTheLoai)
+                        {
+                            <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                        }
+                        else
+                        {
+                            <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                        }
+                    }
+                }
+            </select>
+        </div>
+        <div class="the-loai">
+            <h3>Thể loại 3</h3>
+            <select id="tl3" name="tl3">
+                <option value="null"></option>
+                @foreach (var tl in ViewBag.DsTL)
+                {
+                    if (ViewBag.Sach.MaTL3 != null && ViewBag.Sach.MaTL3.ToString() == tl.MaTheLoai)
+                    {
+                        <option value="@tl.MaTheLoai" selected>@tl.TenTheLoai</option>
+                    }
+                    else
+                    {
+                        <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                    }
+                }
+            </select>
+        </div>*@
                         <div class="book-introduce">
                             <h3>Giới thiệu điện thoại</h3>
                             <textarea id="gioiThieuDienThoai" name="gioiThieuDienThoai" style="width:100%; min-height:170px !important;">@ViewBag.DienTHoai.GioiThieuDienThoai</textarea>

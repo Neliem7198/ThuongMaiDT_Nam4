@@ -40,14 +40,19 @@
                         <select id="hdh" name="hdh" style="width: 200px; height: 30px; color: #33ca93;">
                             <option value="Android">Android</option>
                             <option value="IOS">IOS</option>
-                        </select>              
+                        </select>
                         <h3>CPU</h3>
                         <input id="CPU" name="CPU" type="text" style="width:100%;" />
                     </div>
                     <hr>
+
                     <div class="book-price">
                         <h3>Giá bán</h3>
                         <input id="GiaBan" name="GiaBan" type="number" min="10000" style="width:100%;" />
+                    </div>
+                    <div class="book-price-add">
+                        <h3>Giá nhập</h3>
+                        <input id="GiaNhap" name="GiaNhap" type="number" min="10000" style="width:100%;" />
                     </div>
                     <div class="book-count">
                         <h3>Số lượng</h3>
@@ -67,31 +72,31 @@
                         </select>
                     </div>
                     @*<div class="the-loai">
-                        <h3>Thể loại 2</h3>
-                        <select id="tl2" name="tl2">
-                            <option value="null" selected></option>
-                            @foreach (var tl in ViewBag.DsTL)
-                            {
-                                if (tl.HienThiTL)
-                                {
-                                    <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="the-loai">
-                        <h3>Thể loại 3</h3>
-                        <select id="tl3" name="tl3">
-                            <option value="null" selected></option>
-                            @foreach (var tl in ViewBag.DsTL)
-                            {
-                                if (tl.HienThiTL)
-                                {
-                                    <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
-                                }
-                            }
-                        </select>
-                    </div>*@
+            <h3>Thể loại 2</h3>
+            <select id="tl2" name="tl2">
+                <option value="null" selected></option>
+                @foreach (var tl in ViewBag.DsTL)
+                {
+                    if (tl.HienThiTL)
+                    {
+                        <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="the-loai">
+            <h3>Thể loại 3</h3>
+            <select id="tl3" name="tl3">
+                <option value="null" selected></option>
+                @foreach (var tl in ViewBag.DsTL)
+                {
+                    if (tl.HienThiTL)
+                    {
+                        <option value="@tl.MaTheLoai">@tl.TenTheLoai</option>
+                    }
+                }
+            </select>
+        </div>*@
 
                     <hr>
                     <div class="book-introduce">

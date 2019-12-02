@@ -22,7 +22,7 @@ namespace DA_BookStore.Models
         [StringLength(50)]
         public string TenHangSanXuat { get; set; }
 
-        public bool? HienTHiTL { get; set; }
+        public bool? HienThiTL { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIENTHOAI> DIENTHOAIs { get; set; }
