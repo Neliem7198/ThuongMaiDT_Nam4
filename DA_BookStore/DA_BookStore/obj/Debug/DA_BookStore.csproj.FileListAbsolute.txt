@@ -1213,3 +1213,6 @@ C:\Users\aqua2\Desktop\ThuongMaiDT_Nam4\DA_BookStore\DA_BookStore\obj\Debug\DA_B
 C:\Users\aqua2\Desktop\ThuongMaiDT_Nam4\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.dll
 C:\Users\aqua2\Desktop\ThuongMaiDT_Nam4\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.pdb
 C:\Users\aqua2\Desktop\ThuongMaiDT_Nam4\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csprojAssemblyReference.cache
+C:\Users\aqua2\Documents\GitHub\ThuongMaiDT_Nam4\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.csprojAssemblyReference.cache
+C:\Users\aqua2\Documents\GitHub\ThuongMaiDT_Nam4\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.dll
+C:\Users\aqua2\Documents\GitHub\ThuongMaiDT_Nam4\DA_BookStore\DA_BookStore\obj\Debug\DA_BookStore.pdb

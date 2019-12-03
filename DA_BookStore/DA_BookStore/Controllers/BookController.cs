@@ -53,7 +53,7 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UpdateBookDetail(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string giaNhap, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
+        public ActionResult UpdateBookDetail(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -67,7 +67,6 @@ namespace DA_BookStore.Controllers
                     dt.HeDieuHanh = hdh;
                     dt.CPU = cpu;
                     dt.GiaBan = int.Parse(giaBan);
-                    dt.GiaNhap = int.Parse(giaNhap);
                     dt.GioiThieuDienThoai = gioiThieuDienThoai;
                     dt.SoLuongTon = int.Parse(soLuongTon);
 
@@ -180,7 +179,7 @@ namespace DA_BookStore.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
-        public ActionResult AddBook(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string giaNhap, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
+        public ActionResult AddBook(string tenDienThoai, string manHinh, string cameraSau, string cameraTruoc, string hdh, string cpu, string giaBan, string gioiThieuDienThoai, string tl1, string soLuongTon, HttpPostedFileBase hinh)
         {
             if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
             {
@@ -199,7 +198,6 @@ namespace DA_BookStore.Controllers
                     dt.HeDieuHanh = hdh;                 
                     dt.CPU = cpu;
                     dt.GiaBan = int.Parse(giaBan);
-                    dt.GiaNhap = int.Parse(giaNhap);
                     dt.SoLanTruyCap = 0;
                     dt.GioiThieuDienThoai = gioiThieuDienThoai;
                     dt.SoLuongTon = int.Parse(soLuongTon);
