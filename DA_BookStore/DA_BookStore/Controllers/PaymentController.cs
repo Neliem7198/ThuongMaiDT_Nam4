@@ -22,7 +22,7 @@ namespace DA_BookStore.Controllers
                 using (var db = new QLPhone())
                 {
                     ViewBag.DsSachDeal = db.DIENTHOAIs.Where(t => t.KHUYENMAI.NgayKetThuc > DateTime.Now && t.HienThiDT == true).Take(5).ToList();
-                    ViewBag.DsTL = db.DIENTHOAIs.ToList();
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
 
                     string temp = Session["userID"].ToString();
 
@@ -36,8 +36,14 @@ namespace DA_BookStore.Controllers
 
                     foreach (var item in query)
                     {
-                        km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
-                        tamTinh += item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
+                        using (var db2 = new QLPhone())
+                        {
+                            km = db2.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
+                        }
+                        if (km != null)
+                            tamTinh += item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
+                        else
+                            tamTinh += item.GiaBan * item.SoLuongGioHang;
                     }
 
                     ViewBag.TamTinh = string.Format("{0:0,0}", tamTinh);

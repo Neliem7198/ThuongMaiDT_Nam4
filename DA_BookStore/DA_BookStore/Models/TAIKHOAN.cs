@@ -44,6 +44,8 @@ namespace DA_BookStore.Models
 
         public bool? HienThiTK { get; set; }
 
+        public int? Point { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BINHLUAN> BINHLUANs { get; set; }
 

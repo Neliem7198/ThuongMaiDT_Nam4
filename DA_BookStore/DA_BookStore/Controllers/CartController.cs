@@ -71,9 +71,20 @@ namespace DA_BookStore.Controllers
                     cttemp.TenDienThoai = item.TenDienThoai;
                     cttemp.SoLuongGioHang = item.SoLuongGioHang;
                     cttemp.MaDienThoai = item.MaDienThoai;
-                    //km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
-                    //cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
-                    //cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang * (km.PhanTramKhuyenMai * 0.01);
+                    using (var dbtemp = new Models.QLPhone())
+                    {
+                        km = dbtemp.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
+                        if (km != null)
+                        {
+                            cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
+                            cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang * (km.PhanTramKhuyenMai * 0.01);
+                        }
+                        else
+                        {
+                            cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang;
+                            cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang;
+                        }
+                    }
                     ctgh.Add(cttemp);
                 }
 

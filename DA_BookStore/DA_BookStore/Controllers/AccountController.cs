@@ -168,5 +168,46 @@ namespace DA_BookStore.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public ActionResult KhachHangManage(int index = 0)
+        {
+            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            {
+                using (var db = new Models.QLPhone())
+                {
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
+
+                    List<Models.TAIKHOAN> dsTK = db.TAIKHOANs.Where(t => t.HienThiTK == true).ToList();
+
+                    ViewBag.DsTK = dsTK.Skip(15 * index).Take(15);
+                    ViewBag.slTK = dsTK.Count();
+                }
+
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        public ActionResult KhachHangManage(string id, int index = 0)
+        {
+            if (Session["userPrio"] != null && Session["userPrio"].ToString() == "Admin")
+            {
+                using (var db = new Models.QLPhone())
+                {
+                    ViewBag.DsTL = db.HANGSANXUATs.ToList();
+                    ViewBag.DsNV = db.NHANVIENs.ToList();
+
+                    ViewBag.test = Request.Url.ToString();
+
+                    List<Models.TAIKHOAN> dsTK = db.TAIKHOANs.Where(t => t.HienThiTK == true && t.TenTaiKhoan.Contains(id)).ToList();
+
+                    ViewBag.DsTK = dsTK.Skip(15 * index).Take(15);
+                    ViewBag.slTK = dsTK.Count();
+                }
+
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
