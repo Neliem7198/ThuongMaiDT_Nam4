@@ -74,31 +74,33 @@
                                             <td>@item.Email</td>
                                             <td>@item.Sdt</td>
                                             <td>@((item.GioiTinh) ? "Nam" : "Nữ")</td>
-                                            <td>
-                                                @foreach (var nv in ViewBag.DsTK)
+                                            <td style="color:brown">
+                                                @if (item.Point >= 100)
                                                 {
-                                                    
-                                                    if (nv.Point >= 100)
-                                                    {
-                                                        <p>Khách hàng kim cương</p>
-                                                        break;
-                                                    }
-                                                    else if (nv.Point >= 50)
-                                                    {
-                                                        <p>Khách hàng bạch kim</p>
-                                                        break;
-                                                    }
-                                                    else if (nv.Point >= 10)
-                                                    {
-                                                        <p>Khách hàng vàng</p>
-                                                        break;
-                                                    }
-                                                    else if(nv.Point >= 0)
-                                                    {
-                                                        <p>Khách hàng thường</p>
-                                                        break;
-                                                    }
+                                                    <p>Khách hàng kim cương</p>
+                                                    break;
                                                 }
+                                                @if (item.Point >= 50)
+                                                {
+                                                    <p>Khách hàng bạch kim</p>
+                                                    break;
+                                                }
+                                                @if (item.Point >= 20)
+                                                {
+                                                    <p>Khách hàng vàng</p>
+                                                    break;
+                                                }
+                                                @if (item.Point >= 10)
+                                                {
+                                                    <p>Khách hàng bạc</p>
+                                                    break;
+                                                }
+                                                @if  (item.Point < 10)
+                                                { 
+                                                    <p>Khách hàng thường</p>
+                                                   
+                                                }
+                                                        
                                             </td>
                                         </tr>
                                     }

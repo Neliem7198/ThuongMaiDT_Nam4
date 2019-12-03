@@ -77,7 +77,7 @@ namespace DA_BookStore.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(string id, string pass, string ten, string email, string sdt, bool? sex, string rePass, string diaChi)
+        public ActionResult SignUp(string id, string pass, string ten, string email, string sdt, bool? sex, string rePass, string diaChi )
         {
             using (var db = new Models.QLPhone())
             {
@@ -112,7 +112,7 @@ namespace DA_BookStore.Controllers
                     //    return View("SignUp");
                     //}
 
-                    db.TAIKHOANs.Add(new Models.TAIKHOAN() { TenTaiKhoan = id, MauKhau = pass, Email = email, Sdt = sdt, DiaChi = diaChi, GioiTinh = sex, HoTen = ten , HienThiTK= true });
+                    db.TAIKHOANs.Add(new Models.TAIKHOAN() { TenTaiKhoan = id, MauKhau = pass, Email = email, Sdt = sdt, DiaChi = diaChi, GioiTinh = sex, HoTen = ten , HienThiTK= true , Point = 0});
                     db.SaveChanges();
                     db.Dispose();
 
