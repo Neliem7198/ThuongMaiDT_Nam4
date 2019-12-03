@@ -179,6 +179,7 @@
     <Compile Include="Models\QLPhone.cs" />
     <Compile Include="Models\QUANGCAO.cs" />
     <Compile Include="Models\TAIKHOAN.cs" />
+    <Compile Include="Models\Temp\CTGIOHANGViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

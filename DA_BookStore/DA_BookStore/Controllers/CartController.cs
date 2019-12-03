@@ -40,7 +40,7 @@ namespace DA_BookStore.Controllers
             {
                 return RedirectToAction("Login", "Login");
             }
-            return RedirectToAction("Home", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public ActionResult Index()
@@ -60,20 +60,20 @@ namespace DA_BookStore.Controllers
                             where gh.TenTaiKhoan == temp
                             select new { s.HinhDienThoai, s.TenDienThoai, gh.SoLuongGioHang, s.MaDienThoai, s.MaKhuyenMai, s.GiaBan };
 
-                List<Models.CTGIOHANGViewModel> ctgh = new List<Models.CTGIOHANGViewModel>();
+                List<Models.Temp.CTGIOHANGViewModel> ctgh = new List<Models.Temp.CTGIOHANGViewModel>();
                 Models.KHUYENMAI km = new Models.KHUYENMAI();
 
 
                 foreach (var item in query)
                 {
-                    Models.CTGIOHANGViewModel cttemp = new Models.CTGIOHANGViewModel();
+                    Models.Temp.CTGIOHANGViewModel cttemp = new Models.Temp.CTGIOHANGViewModel();
                     cttemp.HinhDienThoai = item.HinhDienThoai;
                     cttemp.TenDienThoai = item.TenDienThoai;
                     cttemp.SoLuongGioHang = item.SoLuongGioHang;
-                    cttemp.Ma = item.MaDienThoai;
-                    km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
-                    cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
-                    cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang * (km.PhanTramKhuyenMai * 0.01);
+                    cttemp.MaDienThoai = item.MaDienThoai;
+                    //km = db.KHUYENMAIs.Where(t => t.MaKhuyenMai == item.MaKhuyenMai).FirstOrDefault();
+                    //cttemp.GiaBan = item.GiaBan * item.SoLuongGioHang * ((100 - km.PhanTramKhuyenMai) * 0.01);
+                    //cttemp.TietKiem = item.GiaBan * item.SoLuongGioHang * (km.PhanTramKhuyenMai * 0.01);
                     ctgh.Add(cttemp);
                 }
 
@@ -90,7 +90,7 @@ namespace DA_BookStore.Controllers
         [HttpGet]
         public ActionResult DeleteItemCart()
         {
-            string idSach = Request.QueryString["id"].ToString();
+            string idDT = Request.QueryString["id"].ToString();
             if (Session["userID"] == null && Session["userID"].Equals(""))
             {
                 return RedirectToAction("Login", "Login");
@@ -99,7 +99,7 @@ namespace DA_BookStore.Controllers
             using (var db = new Models.QLPhone())
             {
                 var sql = from c in db.CTGIOHANGs
-                          where c.MaDienThoai == idSach && c.TenTaiKhoan == idKhach
+                          where c.MaDienThoai == idDT && c.TenTaiKhoan == idKhach
                           select c;
 
                 var sql2 = sql.FirstOrDefault();
