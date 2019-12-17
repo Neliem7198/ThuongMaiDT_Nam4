@@ -124,7 +124,13 @@ namespace DA_BookStore.Controllers
 
                     var queryCode = db.PROMOCODEs.Find(codePromote);
                     var hdmua = db.HOADONMUAHANGs.Find(hd.MaHDMua);
-                    hdmua.TongTien = tongTien - queryCode.SoTienGiam;
+                    if (queryCode != null)
+                    {
+                        hd.CODE = codePromote;
+                        tongTien -= queryCode.SoTienGiam ?? 0;
+                    }
+                    hdmua.TongTien = (int)tongTien;
+                    db.HOADONMUAHANGs.Add(hd);
                     a = hdmua.TongTien;
                     foreach (var item in sql)
                     {
