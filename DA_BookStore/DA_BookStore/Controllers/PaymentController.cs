@@ -58,7 +58,7 @@ namespace DA_BookStore.Controllers
             return View();
         }
         [HttpPost]
-        public string Payment(string name, string address, string phonenumber, string email, string note, string codePromote)
+        public ActionResult Payment(string name, string address, string phonenumber, string email, string note, string codePromote)
         {
             ViewBag.HoTen = name;
             ViewBag.DiaChi = address;
@@ -99,15 +99,40 @@ namespace DA_BookStore.Controllers
                     hd.ThoiGianMua = DateTime.Now;
                     hd.TenTaiKhoan = tenTaiKhoan;
                     hd.TinhTrangThanhToan = "Chua";
+                    int? tongTien = 0;
 
-                    if (codePromote != null)
+                    //if (codePromote != null)
+                    //{
+                    //    hd.CODE = codePromote;
+                    //    var queryCode = db.PROMOCODEs.Find(codePromote);
+
+                    //    if (queryCode != null)
+                    //    {
+                    //        hd.CODE = codePromote;
+                    //        tongTien -= queryCode.SoTienGiam ?? 0;
+                    //        hdmua.TongTien = tongTien;
+                    //    }
+                    //    a = hdmua.TongTien;
+                    //}
+                    //else
+                    //{
+
+                    //    a = hdmua.TongTien;
+                    //}
+                    //db.HOADONMUAHANGs.Add(hd);
+
+                    var hdmua = db.HOADONMUAHANGs.Find(hd.MaHDMua);
+                    if (codePromote != "")
                     {
                         hd.CODE = codePromote;
+                        var queryCode = db.PROMOCODEs.Find(codePromote);
+                        
+                        hdmua.TongTien = tongTien - queryCode.SoTienGiam;
                     }
                     db.HOADONMUAHANGs.Add(hd);
 
 
-                    int? tongTien = 0;
+
                     foreach (var item in cartTemp)
                     {
                        var sachTemp = db.DIENTHOAIs.Find(item.MaDienThoai);
@@ -122,16 +147,12 @@ namespace DA_BookStore.Controllers
                         db.CTHOADONMUAHANGs.Add(ctHD);
                     }
 
-                    var queryCode = db.PROMOCODEs.Find(codePromote);
-                    var hdmua = db.HOADONMUAHANGs.Find(hd.MaHDMua);
-                    if (queryCode != null)
-                    {
-                        hd.CODE = codePromote;
-                        tongTien -= queryCode.SoTienGiam ?? 0;
-                    }
-                    hdmua.TongTien = (int)tongTien;
-                    db.HOADONMUAHANGs.Add(hd);
-                    a = hdmua.TongTien;
+
+
+
+                    a = tongTien;
+                    
+                    
                     foreach (var item in sql)
                     {
                         var ctgh = db.CTGIOHANGs.Find(item.MaDienThoai,item.TenTaiKhoan);
@@ -143,7 +164,7 @@ namespace DA_BookStore.Controllers
 
             }
 
-            return name +" Đã hoang phí "+a+"₫";
+            return RedirectToAction("Home");
         }
     }
 }
